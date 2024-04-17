@@ -8,12 +8,16 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.Dimension
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.pictionaryparty.ui.components.PrimaryButton
 import com.pictionaryparty.ui.components.SecondaryButton
+import com.pictionaryparty.ui.main.navigation.CREATE_GROUP
+import com.pictionaryparty.ui.main.navigation.JOIN_GROUP
 
 
 @Composable
-fun Splash() {
+fun Splash(navController: NavController) {
     ConstraintLayout(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -26,8 +30,20 @@ fun Splash() {
                 width = Dimension.fillToConstraints
             }
         ) {
-            PrimaryButton(text ="New Game",marginTop = 16.dp)
-            SecondaryButton(text ="Join Game",marginTop = 16.dp)
+            PrimaryButton(
+                text ="New Game",
+                marginTop = 16.dp,
+                onClick = {
+                    navController.navigate(CREATE_GROUP)
+                }
+            )
+            SecondaryButton(
+                text ="Join Game",
+                marginTop = 16.dp,
+                onClick = {
+                    navController.navigate(JOIN_GROUP)
+                }
+            )
         }
     }
 }
@@ -35,5 +51,5 @@ fun Splash() {
 @Preview
 @Composable
 fun SplashPreview() {
-    Splash()
+    Splash(rememberNavController())
 }
