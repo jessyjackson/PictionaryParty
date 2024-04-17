@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">PictionaryParty</string>
+    <string name="create_game">Create Game</string>
+    <string name="join_game">Join Game</string>
+
+    <string name="create_group">Create Group</string>
+    <string name="create_group_name">Group Name</string>
+
+
+    <string name="stream_api_key">123</string>
 </resources>
