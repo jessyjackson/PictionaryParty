@@ -71,7 +71,7 @@ class MainViewModel @Inject constructor(
                 _gameConnectionState.emit(GameConnectionState.Success(channel.getOrThrow()))
             }
             else{
-                _gameConnectionState.emit(GameConnectionState.Failure(channel))
+                //_gameConnectionState.emit(GameConnectionState.Failure(channel))
             }
         }
     }
