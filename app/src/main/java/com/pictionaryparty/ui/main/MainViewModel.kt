@@ -1,23 +1,22 @@
 package com.pictionaryparty.ui.main
 
-import androidx.compose.ui.res.stringResource
-import androidx.core.content.ContextCompat.getString
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.pictionaryparty.R
 import com.pictionaryparty.data.AppPreference
 import com.pictionaryparty.data.GameConnectionState
 import com.pictionaryparty.utils.CHANNEL_MESSAGING
 import com.pictionaryparty.utils.KEY_HOST_NAME
+import com.pictionaryparty.utils.KEY_LIMIT_TIME
 import com.pictionaryparty.utils.KEY_NAME
 import com.pictionaryparty.utils.generateUserId
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.getstream.chat.android.client.ChatClient
-import io.getstream.chat.android.models.Channel
-import io.getstream.chat.android.models.ConnectionData
-import io.getstream.chat.android.models.ConnectionState
-import io.getstream.chat.android.models.User
-import io.getstream.result.Result
+import io.getstream.chat.android.client.call.await
+import io.getstream.chat.android.client.models.Channel
+import io.getstream.chat.android.client.models.ConnectionData
+import io.getstream.chat.android.client.models.User
+import io.getstream.chat.android.client.utils.Result
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -33,14 +32,15 @@ class MainViewModel @Inject constructor(
         get() = prefs.userId ?: generateUserId().also { prefs.userId = it }
     private val _gameConnectionState = MutableStateFlow<GameConnectionState>(GameConnectionState.None)
     val gameConnectionState : StateFlow<GameConnectionState> get() = _gameConnectionState
-    private suspend fun connectUser(displayName :String): Result<ConnectionData> {
+    private suspend fun connectUser(displayName :String,limitTime: Int): Result<ConnectionData> {
         if (chatClient.getCurrentUser() != null){
-            chatClient.disconnect(false)
+            chatClient.disconnect()
         }
         var user = User(
             id = userId,
             extraData = mutableMapOf(
-                KEY_NAME to displayName
+                KEY_NAME to displayName,
+                KEY_LIMIT_TIME to limitTime
 
             )
         )
@@ -49,7 +49,8 @@ class MainViewModel @Inject constructor(
     }
     private suspend fun createChannel(
         groupId : String,
-        displayName: String
+        displayName: String,
+        limitTime: Int
     ): Result<Channel> {
         return chatClient.createChannel(
             CHANNEL_MESSAGING,
@@ -57,21 +58,22 @@ class MainViewModel @Inject constructor(
             listOf(userId),
             extraData = mutableMapOf(
                 KEY_NAME to "$displayName' Group",
-                KEY_HOST_NAME to displayName
+                KEY_HOST_NAME to displayName,
+                KEY_LIMIT_TIME to limitTime
             )
         ).await()
     }
-    fun createGameGroup(displayName: String,limitUser: Int) = viewModelScope.launch{
-        val connection = connectUser(displayName)
+    fun createGameGroup(displayName: String,limitTime: Int) = viewModelScope.launch{
+        val connection = connectUser(displayName,limitTime)
         if (connection.isSuccess) {
             _gameConnectionState.emit(GameConnectionState.Loading)
             val groupId = generateUserId()
-            val channel = createChannel(groupId, displayName)
+            val channel = createChannel(groupId, displayName,limitTime)
             if (channel.isSuccess){
-                _gameConnectionState.emit(GameConnectionState.Success(channel.getOrThrow()))
+                _gameConnectionState.emit(GameConnectionState.Success(channel.data()))
             }
             else{
-                _gameConnectionState.emit(GameConnectionState.Failure(channel))
+                _gameConnectionState.emit(GameConnectionState.Failure(channel.error()))
             }
         }
     }

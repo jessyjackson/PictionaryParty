@@ -1,7 +1,7 @@
 package com.pictionaryparty.data
 
 import io.getstream.chat.android.client.errors.ChatError
-import io.getstream.chat.android.models.Channel
+import io.getstream.chat.android.client.models.Channel
 
 
 sealed class GameConnectionState {

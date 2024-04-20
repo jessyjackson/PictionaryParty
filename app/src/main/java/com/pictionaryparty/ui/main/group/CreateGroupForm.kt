@@ -3,6 +3,7 @@ package com.pictionaryparty.ui.main.group
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
@@ -11,14 +12,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.Dimension
+import androidx.lifecycle.ViewModel
 import com.pictionaryparty.R
 import com.pictionaryparty.ui.components.AppTextField
 import com.pictionaryparty.ui.components.PrimaryButton
+import com.pictionaryparty.ui.main.MainViewModel
 
 @Composable
-fun CreateGroupForm() {
+fun CreateGroupForm(viewModel: MainViewModel) {
     var displayName = remember {
         mutableStateOf("")
+    }
+    var limitTime = remember {
+        mutableIntStateOf(5)
     }
     ConstraintLayout (
         modifier = Modifier.fillMaxSize()
@@ -39,14 +45,26 @@ fun CreateGroupForm() {
                 onValueChange = {displayName.value = it},
                 value = displayName.value
             )
-            PrimaryButton(text = stringResource(id = R.string.create_group),marginTop = 16.dp)
+            AppTextField(
+                label = stringResource(id = R.string.limit_group_time),
+                onValueChange = {limitTime.value = it.toInt()},
+                value = limitTime.value.toString()
+            )
+            PrimaryButton(
+                text = stringResource(id = R.string.create_group),
+                marginTop = 16.dp,
+                onClick = {
+                    viewModel.createGameGroup(displayName.toString(),limitTime.intValue)
+                })
 
         }
     }
 
 }
+/*
 @Preview
 @Composable
 fun DefaultPreview() {
     CreateGroupForm()
 }
+*/

@@ -5,6 +5,7 @@
 
     <string name="create_group">Create Group</string>
     <string name="create_group_name">Group Name</string>
+    <string name="limit_group_time">Limit Time</string>
 
 
     <string name="stream_api_key">123</string>

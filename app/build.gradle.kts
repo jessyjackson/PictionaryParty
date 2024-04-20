@@ -70,11 +70,15 @@ dependencies {
 
 
 
-    implementation("io.getstream:stream-chat-android-compose:6.3.0")
+    implementation("io.getstream:stream-chat-android-compose:4.30.1-beta")
 
 
 
     implementation("com.google.firebase:firebase-database:20.3.1")
+
+
+    implementation("" +
+            "androidx.hilt:hilt-navigation-compose:1.2.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
