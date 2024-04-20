@@ -9,8 +9,10 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 
 import com.pictionaryparty.ui.theme.DefaultButtonColor
@@ -40,6 +42,7 @@ fun PrimaryButton(
         marginBottom = marginBottom,
         marginLeft = marginLeft,
         marginRight = marginRight
+
     )
 }
 
@@ -58,7 +61,7 @@ fun SecondaryButton(
         text = text,
         enabled = enabled,
         backgroundColor = SecondaryButtonColor,
-        textColor = DefaultTextColor,
+        textColor = LightTextColor,
         marginTop = marginTop,
         marginBottom = marginBottom,
         marginLeft = marginLeft,
@@ -92,7 +95,9 @@ private fun AppButton(
     ) {
         Text(
             text = text,
-            color = textColor
+            color = textColor,
+            fontFamily = FontFamily.SansSerif,
+
         )
     }
 }
@@ -100,5 +105,6 @@ private fun AppButton(
 @Preview
 @Composable
 fun ButtonPreview() {
-    SecondaryButton(text = "Sample Button")
+    PrimaryButton(text = "Sample Button")
+    //SecondaryButton(text = "Sample Button")
 }
