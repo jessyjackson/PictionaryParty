@@ -28,20 +28,18 @@ class MainViewModel @Inject constructor(
     private val chatClient : ChatClient,
     private val prefs : AppPreference
 ) : ViewModel(){
-    private val userId : String
-        get() = prefs.userId ?: generateUserId().also { prefs.userId = it }
+    private val userId : String  = prefs.userId ?: generateUserId().also { prefs.userId = it }
     private val _gameConnectionState = MutableStateFlow<GameConnectionState>(GameConnectionState.None)
     val gameConnectionState : StateFlow<GameConnectionState> get() = _gameConnectionState
     private suspend fun connectUser(displayName :String,limitTime: Int): Result<ConnectionData> {
         if (chatClient.getCurrentUser() != null){
             chatClient.disconnect()
         }
+
         var user = User(
             id = userId,
             extraData = mutableMapOf(
                 KEY_NAME to displayName,
-                KEY_LIMIT_TIME to limitTime
-
             )
         )
         var token = chatClient.devToken(userId)
