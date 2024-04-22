@@ -14,7 +14,7 @@ class AppPreference @Inject constructor(
         set(value) = sharedPreferences.edit().putString(KEY_USER_ID,value).apply()
     companion object{
         private const val KEY_USER_ID = "key_user_id"
-        private const val SHARED_PREFS = "pictionaryparty_pref"
+        private const val SHARED_PREFS = "pictionarypart-pref"
 
     }
 }
