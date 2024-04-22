@@ -1,6 +1,7 @@
 package com.pictionaryparty.ui.main
 
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.pictionaryparty.ui.main.navigation.NAV_SPLASH
 import com.pictionaryparty.ui.main.navigation.CREATE_GROUP
 import com.pictionaryparty.ui.main.navigation.JOIN_GROUP
@@ -19,10 +20,10 @@ fun MainScreen() {
             Splash(navController)
         }
         composable(CREATE_GROUP) {
-            CreateGroup()
+            CreateGroup(hiltViewModel())
         }
         composable(JOIN_GROUP) {
-            JoinGroup()
+            JoinGroup(hiltViewModel())
         }
     }
 }

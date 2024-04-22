@@ -1,22 +1,18 @@
 package com.pictionaryparty
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.google.firebase.Firebase
-import com.google.firebase.database.database
+import androidx.appcompat.app.AppCompatActivity
+import dagger.hilt.android.AndroidEntryPoint
 import com.pictionaryparty.ui.main.MainScreen
 
-class MainActivity : ComponentActivity() {
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MainScreen()
         }
-
-        var database = Firebase.database;
-        val myRef = database.getReference("message");
-
-        myRef.setValue("Hello world!")
     }
 }

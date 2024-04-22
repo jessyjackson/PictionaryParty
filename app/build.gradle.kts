@@ -1,7 +1,9 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("com.google.gms.google-services")
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
+    //id("com.google.gms.google-services")
 }
 
 android {
@@ -52,7 +54,9 @@ android {
 
 dependencies {
 
-    implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
+    //kapt("org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.5.0")
+    //androidx
+
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation("androidx.navigation:navigation-compose:2.7.7")
@@ -64,23 +68,22 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
     implementation(platform("androidx.compose:compose-bom:2023.08.00"))
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.7.3")
-
-    implementation("com.google.dagger:hilt-android:2.51.1")
-
     implementation("androidx.appcompat:appcompat:1.6.1")
 
-
-
+    //stream
     implementation("io.getstream:stream-chat-android-compose:4.30.1-beta")
 
 
-
+    //firebase
     implementation("com.google.firebase:firebase-database:20.3.1")
+    implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
 
+    //hilt
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
-    implementation("" +
-            "androidx.hilt:hilt-navigation-compose:1.2.0")
+    implementation("com.google.dagger:hilt-android:2.51.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
