@@ -5,6 +5,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.getstream.chat.android.client.ChatClient
+import io.getstream.chat.android.livedata.ChatDomain
 import javax.inject.Singleton
 
 @Module
@@ -13,5 +14,7 @@ object ChatModule {
     @Provides
     @Singleton
     fun provideChatClient() = ChatClient.instance()
-
+    @Provides
+    @Singleton
+    fun provideChatDomain() = ChatDomain.instance()
 }
