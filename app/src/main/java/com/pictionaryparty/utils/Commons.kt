@@ -10,5 +10,11 @@ fun generateGroupId() : String{
     return generateRandomId(6,('A'..'Z') + ('0'..'9'))
 }
 private fun generateRandomId(length: Int, allowedChars : List<Char>) : String{
-    return (1..length).map { allowedChars.random() }.toString()
+    var arrayID = (1..length).map { allowedChars.random() }
+    var id = "";
+    for(letter in arrayID)
+    {
+        id += letter;
+    }
+    return id;
 }
