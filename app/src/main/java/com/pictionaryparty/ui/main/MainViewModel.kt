@@ -35,14 +35,13 @@ class MainViewModel @Inject constructor(
         if (chatClient.getCurrentUser() != null){
             chatClient.disconnect()
         }
-
-        var user = User(
+        val user = User(
             id = userId,
             extraData = mutableMapOf(
                 KEY_NAME to displayName,
             )
         )
-        var token = chatClient.devToken(userId)
+        val token = chatClient.devToken(userId)
         return chatClient.connectUser(user,token).await()
     }
     private suspend fun createChannel(
