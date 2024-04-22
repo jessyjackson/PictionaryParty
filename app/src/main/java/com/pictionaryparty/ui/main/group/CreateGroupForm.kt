@@ -1,5 +1,6 @@
 package com.pictionaryparty.ui.main.group
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -54,7 +55,9 @@ fun CreateGroupForm(viewModel: MainViewModel) {
                 text = stringResource(id = R.string.create_group),
                 marginTop = 16.dp,
                 onClick = {
-                    viewModel.createGameGroup(displayName.toString(),limitTime.intValue)
+                    val a = displayName.value
+                    Log.d("TEST", "CreateGroupForm: " + a)
+                    viewModel.createGameGroup(displayName.value,limitTime.intValue)
                 })
 
         }

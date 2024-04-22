@@ -17,9 +17,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.pictionaryparty.R
 import com.pictionaryparty.ui.components.AppTextField
 import com.pictionaryparty.ui.components.SecondaryButton
+import com.pictionaryparty.ui.main.MainViewModel
 
 @Composable
-fun JoinGroup(hiltViewModel: Any) {
+fun JoinGroup(viewModel: MainViewModel) {
     var displayName by remember { mutableStateOf("")}
     var groupCode by remember { mutableStateOf("")}
 
