@@ -1,5 +1,6 @@
 package com.pictionaryparty.ui.main.group
 
+import android.app.AlertDialog
 import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,6 +37,18 @@ fun JoinGroup(viewModel: MainViewModel) {
     {
         GameActivity.start(context, (gameConnection as GameConnectionState.Success).channel.cid)
         Log.d("Connesso!", "Connesso!")
+    }
+    else if(gameConnection is GameConnectionState.Failure)
+    {
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle("Errore!")
+        builder.setMessage("Codice non trovato!")
+        builder.setPositiveButton("OK") { dialog, _ ->
+            dialog.dismiss()
+        }
+        val dialog = builder.create()
+        dialog.show()
+        Log.d("Errore!", "Non connesso!")
     }
 
     Box(
