@@ -19,8 +19,11 @@ import io.getstream.chat.android.client.models.Channel
 import io.getstream.chat.android.client.models.ConnectionData
 import io.getstream.chat.android.client.models.User
 import io.getstream.chat.android.client.utils.Result
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -32,6 +35,8 @@ class MainViewModel @Inject constructor(
     private val userId : String  = prefs.userId ?: generateUserId().also { prefs.userId = it }
     private val _gameConnectionState = MutableStateFlow<GameConnectionState>(GameConnectionState.None)
     val gameConnectionState : StateFlow<GameConnectionState> get() = _gameConnectionState
+    val connectedChannel: Flow<Channel?> = _gameConnectionState.filterIsInstance<GameConnectionState.Success>()
+        .mapNotNull { it.channel }
     //c'era limit time, ma non usato
     private suspend fun connectUser(displayName :String): Result<ConnectionData> {
         if (chatClient.getCurrentUser() != null){

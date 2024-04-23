@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.pictionaryparty.R
 import com.pictionaryparty.ui.components.PrimaryButton
+import com.pictionaryparty.utils.groupID
 import io.getstream.chat.android.client.models.Channel
 
 @Composable
@@ -32,20 +33,8 @@ fun GroupEntranceSheetContent(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "test",
+                text = channel?.groupID ?: "",
             )
-            Text(
-                text = "test",
-            )
-            Box(
-                modifier = Modifier
-                    .wrapContentSize()
-                    .padding(12.dp)
-            ) {
-                Text(
-                    text = "abc"
-                )
-            }
             PrimaryButton(
                 text = "game",
                 marginTop = 24.dp,
