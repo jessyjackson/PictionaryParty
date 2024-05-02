@@ -11,7 +11,7 @@ interface RandomWordsApi {
     companion object {
 
 
-        private const val BASE_URL = ""
+        private const val BASE_URL = "https://gist.githubusercontent.com/skydoves/b7a045f42e66a7a61fd850e566993c9d/raw/c671a08e5bad0296e30c182ace5113bf4f18bc71/"
         operator fun invoke() :RandomWordsApi{
             return Retrofit.Builder()
                 .baseUrl(BASE_URL)

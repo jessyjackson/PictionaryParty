@@ -2,6 +2,7 @@ package com.pictionaryparty.di
 
 import android.content.Context
 import com.pictionaryparty.data.AppPreference
+import com.pictionaryparty.data.RandomWordsApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,4 +17,6 @@ object AppModule {
     @Singleton
     fun provideAppPreferences(@ApplicationContext context: Context) = AppPreference(context)
 
+    @Provides
+    fun provideRandomsWordApi() = RandomWordsApi.invoke()
 }
