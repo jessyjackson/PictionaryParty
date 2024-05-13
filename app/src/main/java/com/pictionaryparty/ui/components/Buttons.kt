@@ -1,4 +1,5 @@
 package com.pictionaryparty.ui.components
+import android.webkit.WebSettings.TextSize
 import  androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 import com.pictionaryparty.ui.theme.DefaultButtonColor
 import com.pictionaryparty.ui.theme.DefaultTextColor
@@ -97,7 +99,7 @@ private fun AppButton(
             text = text,
             color = textColor,
             fontFamily = FontFamily.SansSerif,
-
+            fontSize = 22.sp
         )
     }
 }
