@@ -15,6 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.pictionaryparty.R
+import com.pictionaryparty.game.GameActivity
 import com.pictionaryparty.ui.components.PrimaryButton
 import com.pictionaryparty.utils.groupID
 import io.getstream.chat.android.client.models.Channel
@@ -40,7 +41,7 @@ fun GroupEntranceSheetContent(
                 marginTop = 24.dp,
                 marginBottom = 24.dp,
                 onClick = {
-
+                    channel?.let { GameActivity.start(context, it.cid) }
                 }
             )
         }

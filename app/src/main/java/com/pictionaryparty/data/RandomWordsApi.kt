@@ -6,7 +6,7 @@ import retrofit2.create
 import retrofit2.http.GET
 
 interface RandomWordsApi {
-    @GET("")
+    @GET("skribble_words.json")
     suspend fun getRandomWords(): List<String>
     companion object {
 
