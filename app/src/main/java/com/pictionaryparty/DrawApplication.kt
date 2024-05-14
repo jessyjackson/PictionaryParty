@@ -1,6 +1,7 @@
 package com.pictionaryparty
 
 import android.app.Application
+import com.google.firebase.FirebaseApp
 import dagger.hilt.android.HiltAndroidApp
 import io.getstream.chat.android.client.BuildConfig
 import io.getstream.chat.android.client.ChatClient
@@ -11,6 +12,7 @@ import io.getstream.chat.android.livedata.ChatDomain
 class DrawApplication : Application(){
     override fun onCreate() {
         super.onCreate()
+        FirebaseApp.initializeApp(this)
 
         val logLevel = if (BuildConfig.DEBUG){
             ChatLogLevel.ALL
