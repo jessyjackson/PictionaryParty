@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import androidx.compose.runtime.State
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.text.toLowerCase
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -13,6 +14,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.pictionaryparty.data.GameChatMessage
 import com.pictionaryparty.data.RandomWords
 import com.pictionaryparty.utils.KEY_HOST_NAME
 import com.pictionaryparty.utils.KEY_NAME
@@ -29,11 +31,15 @@ import io.getstream.chat.android.client.call.await
 import io.getstream.chat.android.client.channel.ChannelClient
 import io.getstream.chat.android.client.channel.subscribeFor
 import io.getstream.chat.android.client.events.ChannelUpdatedByUserEvent
+import io.getstream.chat.android.client.events.NewMessageEvent
+import io.getstream.chat.android.client.models.Message
+import io.getstream.chat.android.client.models.User
 import io.getstream.chat.android.client.subscribeFor
 import io.getstream.chat.android.client.utils.onSuccess
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 class GameViewModel @AssistedInject constructor(
     //private val firebaseDb = FirebaseDatabase.getInstance().getReference("/Users/carlo/Downloads")
@@ -53,6 +59,10 @@ class GameViewModel @AssistedInject constructor(
     val randomWords :StateFlow<List<String>?>
         get() = _randomWords
 
+    private val _gameChatMessages = MutableStateFlow<List<GameChatMessage>>(listOf())
+    val gameChatMessage :StateFlow<List<GameChatMessage>>
+        get() = _gameChatMessages
+
     private val _selectedWord = MutableStateFlow<String?>(null);
     val selectedWord:StateFlow<String?> = _selectedWord;
 
@@ -62,6 +72,7 @@ class GameViewModel @AssistedInject constructor(
     init {
         fetchChannelInformation()
         subscribeToChannelEvents()
+        subscribeToNewMessageEvent()
     }
     @AssistedFactory
     interface GameAssistedFactory{
@@ -118,6 +129,29 @@ class GameViewModel @AssistedInject constructor(
         }
     }
 
+    private fun subscribeToNewMessageEvent()
+    {
+        channelClient.subscribeFor<NewMessageEvent>{
+            _gameChatMessages.value = _gameChatMessages.value + GameChatMessage(
+                it.user.name,
+                it.message.text
+            )
+            if(it.message.text.lowercase() == selectedWord.value?.lowercase())
+            {
+                finishGame(it.user)
+            }
+        }
+    }
+
+    private fun finishGame(user: User) = viewModelScope.launch {
+        channelClient.sendMessage(
+            Message(
+                text = "Congratulation! ${user.name} has correct the answer. \uD83C\uDF89",
+                type = "system"
+            )
+        ).await()
+    }
+
     private fun getRandomWords() = viewModelScope.launch {
         val randomWords = randomWord.getRandomWords()
         _randomWords.emit(randomWords)
@@ -132,6 +166,12 @@ class GameViewModel @AssistedInject constructor(
                 KEY_NAME to hostName.groupName,
                 KEY_HOST_NAME to hostName
             )
+        ).await()
+    }
+
+    fun sendGuessToChannel(guess: String) = viewModelScope.launch {
+        channelClient.sendMessage(
+            Message(user = chatClient.getCurrentUser()!!, text = guess)
         ).await()
     }
 }

@@ -1,5 +1,6 @@
 package com.pictionaryparty.game
 
+import GameScreenBottomSheet
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,6 +10,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.BottomSheetScaffoldState
+import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
@@ -21,10 +23,9 @@ import io.getstream.sketchbook.rememberSketchbookController
 @OptIn(ExperimentalMaterial3Api::class)
 fun GameScreen(viewModel: GameViewModel)
 {
-    BottomSheetScaffold(sheetContent = {
-
-    }
-    ){
+    val buttonSheetScaffoldState = rememberBottomSheetScaffoldState()
+    GameScreenBottomSheet(bottomSheetScaffoldState = buttonSheetScaffoldState ,
+        sheetContent = { ChatWindow(viewModel) }) {
         GameDrawing(viewModel = viewModel)
     }
 }
