@@ -29,7 +29,6 @@ namespace PictionaryParty.Controllers
             {
                 words = words.Where(el => el.Category == wordsRequest.Category);
             }
-            else
             if (wordsRequest.Language == "it")
             {
                 var w = words.Select(el => el.Italian);
