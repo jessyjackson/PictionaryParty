@@ -113,6 +113,49 @@ export interface UserResponse {
      */
     'email'?: string | null;
 }
+/**
+ * 
+ * @export
+ * @interface Word
+ */
+export interface Word {
+    /**
+     * 
+     * @type {number}
+     * @memberof Word
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof Word
+     */
+    'createdAt'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Word
+     */
+    'deletedAt'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Word
+     */
+    'english': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Word
+     */
+    'italian': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Word
+     */
+    'category': string;
+}
 
 /**
  * AuthApi - axios parameter creator
@@ -284,6 +327,35 @@ export const WordsApiAxiosParamCreator = function (configuration?: Configuration
     return {
         /**
          * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiWordsAllGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/words/all`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {string} [language] 
          * @param {string} [category] 
          * @param {*} [options] Override http request option.
@@ -333,6 +405,17 @@ export const WordsApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiWordsAllGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Word>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiWordsAllGet(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['WordsApi.apiWordsAllGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @param {string} [language] 
          * @param {string} [category] 
          * @param {*} [options] Override http request option.
@@ -356,6 +439,14 @@ export const WordsApiFactory = function (configuration?: Configuration, basePath
     return {
         /**
          * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiWordsAllGet(options?: any): AxiosPromise<Array<Word>> {
+            return localVarFp.apiWordsAllGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {string} [language] 
          * @param {string} [category] 
          * @param {*} [options] Override http request option.
@@ -374,6 +465,16 @@ export const WordsApiFactory = function (configuration?: Configuration, basePath
  * @extends {BaseAPI}
  */
 export class WordsApi extends BaseAPI {
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WordsApi
+     */
+    public apiWordsAllGet(options?: RawAxiosRequestConfig) {
+        return WordsApiFp(this.configuration).apiWordsAllGet(options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @param {string} [language] 

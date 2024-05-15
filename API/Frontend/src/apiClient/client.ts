@@ -1,4 +1,4 @@
-import { AuthApi, Configuration  } from ".";
+import { AuthApi, WordsApi, Configuration  } from ".";
 import axios, { AxiosInstance } from "axios";
 
 interface BaseConfig {
@@ -17,6 +17,7 @@ class Api {
 	axiosInstance: AxiosInstance;
 
 	authApi: AuthApi;
+	wordsApi: WordsApi;
 
 	constructor(config: ApiConfig = {}) {
 		this.apiBaseUrl = config.baseUrl;
@@ -41,6 +42,11 @@ class Api {
 		};
 
 		this.authApi = new AuthApi(
+			baseConfig.config,
+			baseConfig.baseUrl,
+			baseConfig.axios
+		);
+		this.wordsApi = new WordsApi(
 			baseConfig.config,
 			baseConfig.baseUrl,
 			baseConfig.axios

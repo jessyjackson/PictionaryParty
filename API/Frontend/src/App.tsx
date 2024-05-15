@@ -6,8 +6,15 @@ import LandingPage from "./pages/LandingPage";
 import ScrollToTop from "./lib/ScrollToTop";
 import { ThemeProvider } from "./components/ThemeProvider";
 import LoginPage from "./pages/LoginPage";
+import { useAuthStore } from "./store/authStore";
+import { useEffect } from "react";
 
 function App() {
+  const auth = useAuthStore();
+
+  useEffect(() => {
+    auth.fetchUser();
+  }, []);
 
   return (
       <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">

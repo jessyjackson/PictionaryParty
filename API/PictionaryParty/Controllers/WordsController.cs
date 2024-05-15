@@ -19,8 +19,7 @@ namespace PictionaryParty.Controllers
         /// <summary>
         /// Words
         /// </summary>
-        /// <response code="200">Returns the Words</response> 
-        
+        /// <response code="200">Returns only the Words</response> 
         [HttpGet("")]
         public IActionResult GetWords([FromQuery] GetWordsRequest wordsRequest)
         {
@@ -42,6 +41,19 @@ namespace PictionaryParty.Controllers
             var defaults = words.Select(el => el.English);
             return Ok(defaults);   
         }
+
+        /// <summary>
+        /// Words
+        /// </summary>
+        /// <response code="200">Returns all the  Words</response> 
+        [HttpGet("all")]
+        [ProducesResponseType(typeof(List<Word>), StatusCodes.Status200OK)]
+        public IActionResult GetWords()
+        {
+            var words = DB.Words.Where(el => el.DeletedAt == null);
+            return Ok(words);
+        }
+
     }
 
 
