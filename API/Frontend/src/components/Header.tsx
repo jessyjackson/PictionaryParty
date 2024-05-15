@@ -6,9 +6,12 @@ import { ModeToggle } from "./ThemeSwitcher";
 import { useTheme } from "./ThemeProvider";
 import { useAuthStore } from "@/store/authStore";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { BiLogOutCircle } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
 	const auth = useAuthStore();
+	const navigate = useNavigate();
 
 	const buildProfileButton = useCallback(() => {
 		if (auth.isLogging || auth.isUserLoading) {
@@ -31,30 +34,38 @@ function Header() {
 		}
 
 		return (
-			<Link to="/admin">
-				<Button variant="ghost" className="p-6">
-					<LuUser className="text-2xl mr-2" />
-					<p className="text-xl">Profile</p>
-				</Button>
-			</Link>
+			<Button
+				className="mx-auto text-destructive hover:text-destructive flex gap-2"
+				variant="ghost"
+				onClick={() => {
+					auth.logout();
+					navigate(0);
+				}}
+			>
+				<BiLogOutCircle className="text-2xl" />
+				Logout
+			</Button>
 		);
 	}, [auth]);
 
 	return (
 		<header className="py-8 px-12 flex items-center">
+
 			<div className="flex items-center mx-auto gap-12">
 				<Link to="/">
 					<Button variant="ghost" className="p-6">
-						<LuMapPin className="text-2xl mr-2" />
 						<p className="text-xl">Home</p>
 					</Button>
-				</Link>
+				</Link>	
 			</div>
+			
 			<div className="w-48 flex justify-end items-center">
 				{buildProfileButton()}
 				<ModeToggle />
 			</div>
+
 		</header>
+					
 	);
 }
 

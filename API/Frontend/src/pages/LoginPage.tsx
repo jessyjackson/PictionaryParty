@@ -34,7 +34,7 @@ function Login() {
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
 		try {
 			await auth.login(values.email, values.password);
-			navigate("/admin");
+			navigate("/");
 		} catch (error) {
 			const err = error as AxiosError;
 			toast({

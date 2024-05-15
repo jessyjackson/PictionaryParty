@@ -8,6 +8,7 @@ import { ThemeProvider } from "./components/ThemeProvider";
 import LoginPage from "./pages/LoginPage";
 import { useAuthStore } from "./store/authStore";
 import { useEffect } from "react";
+import { Toaster } from "./components/ui/toaster";
 
 function App() {
   const auth = useAuthStore();
@@ -24,8 +25,10 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={ <LoginPage/>} />
           </Routes>
-        </ScrollToTop>
+        
         <Footer />
+      <Toaster />
+      </ScrollToTop>
       </ThemeProvider>
   );
 }
