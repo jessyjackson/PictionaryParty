@@ -156,6 +156,31 @@ export interface Word {
      */
     'category': string;
 }
+/**
+ * 
+ * @export
+ * @interface WordResponse
+ */
+export interface WordResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof WordResponse
+     */
+    'category'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof WordResponse
+     */
+    'english'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof WordResponse
+     */
+    'italian'?: string | null;
+}
 
 /**
  * AuthApi - axios parameter creator
@@ -393,6 +418,93 @@ export const WordsApiAxiosParamCreator = function (configuration?: Configuration
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiWordsIdDelete: async (id: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('apiWordsIdDelete', 'id', id)
+            const localVarPath = `/api/words/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} category 
+         * @param {string} english 
+         * @param {string} italian 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiWordsPost: async (category: string, english: string, italian: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'category' is not null or undefined
+            assertParamExists('apiWordsPost', 'category', category)
+            // verify required parameter 'english' is not null or undefined
+            assertParamExists('apiWordsPost', 'english', english)
+            // verify required parameter 'italian' is not null or undefined
+            assertParamExists('apiWordsPost', 'italian', italian)
+            const localVarPath = `/api/words`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+            const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
+
+
+            if (category !== undefined) { 
+                localVarFormParams.append('Category', category as any);
+            }
+    
+            if (english !== undefined) { 
+                localVarFormParams.append('English', english as any);
+            }
+    
+            if (italian !== undefined) { 
+                localVarFormParams.append('Italian', italian as any);
+            }
+    
+    
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = localVarFormParams;
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -427,6 +539,32 @@ export const WordsApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['WordsApi.apiWordsGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * 
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiWordsIdDelete(id: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiWordsIdDelete(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['WordsApi.apiWordsIdDelete']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} category 
+         * @param {string} english 
+         * @param {string} italian 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiWordsPost(category: string, english: string, italian: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WordResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiWordsPost(category, english, italian, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['WordsApi.apiWordsPost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -454,6 +592,26 @@ export const WordsApiFactory = function (configuration?: Configuration, basePath
          */
         apiWordsGet(language?: string, category?: string, options?: any): AxiosPromise<void> {
             return localVarFp.apiWordsGet(language, category, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiWordsIdDelete(id: number, options?: any): AxiosPromise<boolean> {
+            return localVarFp.apiWordsIdDelete(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} category 
+         * @param {string} english 
+         * @param {string} italian 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiWordsPost(category: string, english: string, italian: string, options?: any): AxiosPromise<WordResponse> {
+            return localVarFp.apiWordsPost(category, english, italian, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -485,6 +643,30 @@ export class WordsApi extends BaseAPI {
      */
     public apiWordsGet(language?: string, category?: string, options?: RawAxiosRequestConfig) {
         return WordsApiFp(this.configuration).apiWordsGet(language, category, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WordsApi
+     */
+    public apiWordsIdDelete(id: number, options?: RawAxiosRequestConfig) {
+        return WordsApiFp(this.configuration).apiWordsIdDelete(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} category 
+     * @param {string} english 
+     * @param {string} italian 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WordsApi
+     */
+    public apiWordsPost(category: string, english: string, italian: string, options?: RawAxiosRequestConfig) {
+        return WordsApiFp(this.configuration).apiWordsPost(category, english, italian, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

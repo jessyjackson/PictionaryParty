@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using PictionaryParty.Models;
 using PictionaryParty.Models.Entities;
 using PictionaryParty.Models.Request.Words;
+using PictionaryParty.Models.Response;
 using System.ComponentModel.DataAnnotations;
 
 namespace PictionaryParty.Controllers
@@ -42,6 +43,46 @@ namespace PictionaryParty.Controllers
             return Ok(defaults);   
         }
 
+        /// <summary>
+        /// Words
+        /// </summary>
+        /// <response code="200">Add a word</response>
+        [Authorize]
+        [HttpPost("")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(WordResponse), StatusCodes.Status200OK)]
+        public IActionResult AddWord([FromForm] CreateWordRequest addWordRequest)
+        {
+            var word = new Word
+            {
+                Category = addWordRequest.Category,
+                English = addWordRequest.English,
+                Italian = addWordRequest.Italian
+            };
+            DB.Words.Add(word);
+            DB.SaveChanges();
+            return Ok(word);
+        }
+
+        /// <summary>
+        /// Words
+        /// </summary>
+        /// <response code="200">Return 200 if the word was delete</response>
+        [Authorize]
+        [HttpDelete("{id}")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        public IActionResult DeleteWord(int id)
+        {
+            var word = DB.Words.Find(id);
+            if (word == null)
+            {
+                return NotFound();
+            }
+            word.DeletedAt = DateTime.Now;
+            DB.SaveChanges();
+            return Ok(true);
+        }
         /// <summary>
         /// Words
         /// </summary>

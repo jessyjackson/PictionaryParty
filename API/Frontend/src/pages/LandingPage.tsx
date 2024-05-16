@@ -38,25 +38,15 @@ import {
 
 import apiClient from "@/data/apiClient";
 import { useQuery } from "@tanstack/react-query";
-import { useCallback } from "react"
 import { useAuthStore } from "@/store/authStore"
-import { GoTrash } from "react-icons/go";
-import { useState } from "react";
-import {
-    AlertDialog,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
+import { Word } from "@/apiClient";
+import CreateTable from "@/components/WordsTable";
 
 
 function LandingPage() {
 
     const auth = useAuthStore();
-    const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+
     const wordsQuery = useQuery({
         queryKey: ["word"],
         queryFn: async() =>{
@@ -65,67 +55,7 @@ function LandingPage() {
         },
     });
 
-    const buildDeleteTypeDialog = () => {
-        return (
-            <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
-                <AlertDialogContent>
-                    <AlertDialogHeader>
-                        <AlertDialogTitle>Delete word</AlertDialogTitle>
-                    </AlertDialogHeader>
-                    <AlertDialogDescription>
-                        Are you sure you want to delete this word?
-                    </AlertDialogDescription>
-                    <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <Button
-                            variant="destructive"
-                            onClick={() => {
-                                
-                            }}
-                        >
-                            Delete
-                        </Button>
-                    </AlertDialogFooter>
-                </AlertDialogContent>
-            </AlertDialog>
-        );
-    }
 
-    const buildWordsTable = useCallback(() => {
-        return(
-            wordsQuery.data?.map((word) => {
-                return(
-                    <TableRow>
-                        <TableCell className="text-left">
-                            {word.id}
-                        </TableCell>
-                        <TableCell className="text-left">
-                            {word.english}
-                        </TableCell>
-                        <TableCell className="text-left">
-                            {word.italian}
-                        </TableCell>
-                        <TableCell className="text-left">
-                            {word.category}
-                        </TableCell>
-                        {auth.user && (
-                            <TableCell>
-                                
-                                <Button
-                                    variant="ghost"
-                                    className="text-destructive text-2xl"
-                                    onClick={() => setDeleteDialogOpen(true)}>
-                                    <GoTrash />
-                                </Button>
-
-                            </TableCell>
-                        )}
-                    </TableRow>
-                )
-            }
-        )
-        );
-    }, [wordsQuery.data])
 
 
     return (
@@ -161,7 +91,9 @@ function LandingPage() {
                                             </TableRow>
                                         </TableHeader>
                                         <TableBody>
-                                            {buildWordsTable()}
+                                            {wordsQuery.data?.map((word: Word) => (
+                                                <CreateTable key={word.id} type={word} />
+                                            ))}
                                         </TableBody>
                                     </Table>
                                 </CardContent>
@@ -169,7 +101,6 @@ function LandingPage() {
                         </TabsContent>
                     </Tabs>
                 </main>
-            {buildDeleteTypeDialog()}
             </div>
     )
 }
