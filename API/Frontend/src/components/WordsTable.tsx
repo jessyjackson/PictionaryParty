@@ -27,6 +27,7 @@ interface WordProps {
 }
 
 function CreateTable(props: WordProps) {
+    const auth = useAuthStore();
     const navigate = useNavigate();
     const { toast } = useToast();
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);

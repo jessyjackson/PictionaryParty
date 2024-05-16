@@ -39,6 +39,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
 		try {
 			set({ isUserLoading: true });
 			const res = await apiClient.authApi.authMeGet();
+			console.log(res);
 			set({ user: res.data, isUserLoading: false });
 		} catch (err) {
 			console.log(err);

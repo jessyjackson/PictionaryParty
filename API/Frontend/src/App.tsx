@@ -2,7 +2,7 @@ import "./App.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { Route, Routes } from "react-router-dom";
-import LandingPage from "./pages/LandingPage";
+import LandingPage  from "./pages/LandingPage";
 import ScrollToTop from "./lib/ScrollToTop";
 import { ThemeProvider } from "./components/ThemeProvider";
 import LoginPage from "./pages/LoginPage";
@@ -24,8 +24,7 @@ function App() {
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={ <LoginPage/>} />
-          </Routes>
-        
+          </Routes> 
         <Footer />
       <Toaster />
       </ScrollToTop>
