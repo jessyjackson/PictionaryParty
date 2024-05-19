@@ -122,10 +122,8 @@ function LandingPage() {
         )
     }
 
-
     return (
-            <div>
-                <main>
+            <main className="page mt-16">
                     <Tabs defaultValue="all">
                         <div className="flex items-center">
                             { auth.user && (<div className="ml-auto flex items-center gap-2">
@@ -154,10 +152,11 @@ function LandingPage() {
                                     <Table>
                                         <TableHeader>
                                             <TableRow>
-                                            <TableHead className="w-[150px]">Number</TableHead>
-                                            <TableHead className="w-[150px]">English</TableHead>
-                                            <TableHead className="w-[150px]">Italian</TableHead>
-                                            <TableHead className="w-[150px]">Category</TableHead>
+                                            <TableHead className="">Number</TableHead>
+                                            <TableHead className="">English</TableHead>
+                                            <TableHead className="">Italian</TableHead>
+                                            <TableHead className="">Category</TableHead>
+                                        {auth.user && (<TableHead className="">Delete</TableHead>)}
                                             </TableRow>
                                         </TableHeader>
                                         <TableBody>
@@ -170,10 +169,10 @@ function LandingPage() {
                             </Card>
                         </TabsContent>
                     </Tabs>
-                </main>
                 {buildAddWordDialog()}
-            </div>
-    )
+            </main>
+                
+        )
 }
 
 export default LandingPage

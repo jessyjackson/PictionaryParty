@@ -1,13 +1,12 @@
 import { Button } from "@/components/ui/button"
-import {
-    TableCell,
-    TableRow,
-} from "@/components/ui/table"
 import apiClient from "@/data/apiClient";
-
 import { useAuthStore } from "@/store/authStore"
 import { GoTrash } from "react-icons/go";
 import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@/components/ui/use-toast";
+import { Word } from "@/apiClient";
 import {
     AlertDialog,
     AlertDialogCancel,
@@ -17,10 +16,11 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
-import { useToast } from "@/components/ui/use-toast";
-import { Word } from "@/apiClient";
+import {
+    TableCell,
+    TableRow,
+} from "@/components/ui/table"
+
 
 interface WordProps {
     type: Word;
@@ -32,7 +32,7 @@ function CreateTable(props: WordProps) {
     const { toast } = useToast();
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
-    const deleteTypeMutation = useMutation({
+    const deleteWordMutation = useMutation({
         mutationFn: async (id: number) => {
             await apiClient.wordsApi.apiWordsIdDelete(id)
         },
@@ -66,9 +66,9 @@ function CreateTable(props: WordProps) {
                         <AlertDialogCancel>Cancel</AlertDialogCancel>
                         <Button
                             variant="destructive"
-                            loading={deleteTypeMutation.isPending}
+                            loading={deleteWordMutation.isPending}
                             onClick={() => {
-                                deleteTypeMutation.mutate(props.type.id);
+                                deleteWordMutation.mutate(props.type.id);
                             }}
                         >
                             Delete

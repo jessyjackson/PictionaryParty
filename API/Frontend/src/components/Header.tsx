@@ -34,7 +34,7 @@ function Header() {
 
 		return (
 			<Button
-				className="mx-auto text-destructive hover:text-destructive flex gap-2"
+				className="mx-auto text-destructive hover:text-destructive flex gap-3"
 				variant="ghost"
 				onClick={() => {
 					auth.logout();
@@ -48,21 +48,12 @@ function Header() {
 	}, [auth]);
 
 	return (
-		<header className="py-8 px-12 flex items-center">
-
-			<div className="flex items-center mx-auto gap-12">
-				<Link to="/">
-					<Button variant="ghost" className="p-6">
-						<p className="text-xl">Home</p>
-					</Button>
-				</Link>	
-			</div>
-			
-			<div className="w-48 flex justify-end items-center">
+		
+		<header className="py-8 px-10 flex justify-end">
+			<div className="w-48 flex items-center">
 				{buildProfileButton()}
 				<ModeToggle />
 			</div>
-
 		</header>
 					
 	);
