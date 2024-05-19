@@ -1,9 +1,8 @@
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import { LuMapPin, LuPlane, LuUser } from "react-icons/lu";
 import { ModeToggle } from "./ThemeSwitcher";
-import { useTheme } from "./ThemeProvider";
 import { useAuthStore } from "@/store/authStore";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { BiLogOutCircle } from "react-icons/bi";

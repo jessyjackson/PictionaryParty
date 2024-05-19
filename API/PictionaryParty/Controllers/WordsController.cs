@@ -51,7 +51,7 @@ namespace PictionaryParty.Controllers
         [HttpPost("")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(WordResponse), StatusCodes.Status200OK)]
-        public IActionResult AddWord([FromForm] CreateWordRequest addWordRequest)
+        public IActionResult AddWord([FromBody] CreateWordRequest addWordRequest)
         {
             var word = new Word
             {

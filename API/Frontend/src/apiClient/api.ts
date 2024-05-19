@@ -26,6 +26,31 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError, operationServerM
 /**
  * 
  * @export
+ * @interface CreateWordRequest
+ */
+export interface CreateWordRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateWordRequest
+     */
+    'category': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateWordRequest
+     */
+    'english': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateWordRequest
+     */
+    'italian': string;
+}
+/**
+ * 
+ * @export
  * @interface LoginRequest
  */
 export interface LoginRequest {
@@ -485,19 +510,11 @@ export const WordsApiAxiosParamCreator = function (configuration?: Configuration
         /**
          * 
          * @summary Words
-         * @param {string} category 
-         * @param {string} english 
-         * @param {string} italian 
+         * @param {CreateWordRequest} [createWordRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiWordsPost: async (category: string, english: string, italian: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'category' is not null or undefined
-            assertParamExists('apiWordsPost', 'category', category)
-            // verify required parameter 'english' is not null or undefined
-            assertParamExists('apiWordsPost', 'english', english)
-            // verify required parameter 'italian' is not null or undefined
-            assertParamExists('apiWordsPost', 'italian', italian)
+        apiWordsPost: async (createWordRequest?: CreateWordRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/words`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -509,32 +526,19 @@ export const WordsApiAxiosParamCreator = function (configuration?: Configuration
             const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-            const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
 
             // authentication bearerAuth required
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
 
-            if (category !== undefined) { 
-                localVarFormParams.append('Category', category as any);
-            }
     
-            if (english !== undefined) { 
-                localVarFormParams.append('English', english as any);
-            }
-    
-            if (italian !== undefined) { 
-                localVarFormParams.append('Italian', italian as any);
-            }
-    
-    
-            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
-    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
+            localVarRequestOptions.data = serializeDataIfNeeded(createWordRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -593,14 +597,12 @@ export const WordsApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary Words
-         * @param {string} category 
-         * @param {string} english 
-         * @param {string} italian 
+         * @param {CreateWordRequest} [createWordRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiWordsPost(category: string, english: string, italian: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WordResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.apiWordsPost(category, english, italian, options);
+        async apiWordsPost(createWordRequest?: CreateWordRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WordResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiWordsPost(createWordRequest, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['WordsApi.apiWordsPost']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -648,14 +650,12 @@ export const WordsApiFactory = function (configuration?: Configuration, basePath
         /**
          * 
          * @summary Words
-         * @param {string} category 
-         * @param {string} english 
-         * @param {string} italian 
+         * @param {CreateWordRequest} [createWordRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiWordsPost(category: string, english: string, italian: string, options?: any): AxiosPromise<WordResponse> {
-            return localVarFp.apiWordsPost(category, english, italian, options).then((request) => request(axios, basePath));
+        apiWordsPost(createWordRequest?: CreateWordRequest, options?: any): AxiosPromise<WordResponse> {
+            return localVarFp.apiWordsPost(createWordRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -706,15 +706,13 @@ export class WordsApi extends BaseAPI {
     /**
      * 
      * @summary Words
-     * @param {string} category 
-     * @param {string} english 
-     * @param {string} italian 
+     * @param {CreateWordRequest} [createWordRequest] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WordsApi
      */
-    public apiWordsPost(category: string, english: string, italian: string, options?: RawAxiosRequestConfig) {
-        return WordsApiFp(this.configuration).apiWordsPost(category, english, italian, options).then((request) => request(this.axios, this.basePath));
+    public apiWordsPost(createWordRequest?: CreateWordRequest, options?: RawAxiosRequestConfig) {
+        return WordsApiFp(this.configuration).apiWordsPost(createWordRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
