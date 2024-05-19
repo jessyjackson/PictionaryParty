@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using PictionaryParty.Models;
 using PictionaryParty.Utils;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +17,7 @@ builder.Services.AddDbContext<PictionaryPartyDBContext>(options =>
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(SetupSwaggerDocumentation);
 
 
 //authentication
@@ -51,10 +54,37 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 app.UseAuthentication();
 app.UseAuthorization();
 
 
 app.MapControllers();
 
+app.MapFallbackToFile("index.html");
+
 app.Run();
+
+
+static void SetupSwaggerDocumentation(SwaggerGenOptions o)
+{
+    o.AddSecurityDefinition("bearerAuth", new OpenApiSecurityScheme()
+    {
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        Description = "Input bearer token to access this API",
+    });
+    o.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "bearerAuth" }
+            },
+            new[] { "BearerAuthenticationScheme" }
+        }
+    });
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    o.IncludeXmlComments(xmlPath);
+}

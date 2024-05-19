@@ -190,6 +190,7 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
     return {
         /**
          * 
+         * @summary Login
          * @param {LoginRequest} [loginRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -207,6 +208,10 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
@@ -223,6 +228,7 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
         },
         /**
          * 
+         * @summary Get current user
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -238,6 +244,10 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
 
     
@@ -262,6 +272,7 @@ export const AuthApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @summary Login
          * @param {LoginRequest} [loginRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -274,6 +285,7 @@ export const AuthApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Get current user
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -295,6 +307,7 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
     return {
         /**
          * 
+         * @summary Login
          * @param {LoginRequest} [loginRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -304,6 +317,7 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
         },
         /**
          * 
+         * @summary Get current user
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -322,6 +336,7 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
 export class AuthApi extends BaseAPI {
     /**
      * 
+     * @summary Login
      * @param {LoginRequest} [loginRequest] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -333,6 +348,7 @@ export class AuthApi extends BaseAPI {
 
     /**
      * 
+     * @summary Get current user
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AuthApi
@@ -352,6 +368,7 @@ export const WordsApiAxiosParamCreator = function (configuration?: Configuration
     return {
         /**
          * 
+         * @summary Words
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -368,6 +385,10 @@ export const WordsApiAxiosParamCreator = function (configuration?: Configuration
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -381,6 +402,7 @@ export const WordsApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * 
+         * @summary Words
          * @param {string} [language] 
          * @param {string} [category] 
          * @param {*} [options] Override http request option.
@@ -398,6 +420,10 @@ export const WordsApiAxiosParamCreator = function (configuration?: Configuration
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
             if (language !== undefined) {
                 localVarQueryParameter['Language'] = language;
@@ -420,6 +446,7 @@ export const WordsApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * 
+         * @summary Words
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -440,6 +467,10 @@ export const WordsApiAxiosParamCreator = function (configuration?: Configuration
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -453,6 +484,7 @@ export const WordsApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * 
+         * @summary Words
          * @param {string} category 
          * @param {string} english 
          * @param {string} italian 
@@ -478,6 +510,10 @@ export const WordsApiAxiosParamCreator = function (configuration?: Configuration
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
             const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
 
             if (category !== undefined) { 
@@ -517,6 +553,7 @@ export const WordsApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @summary Words
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -528,6 +565,7 @@ export const WordsApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Words
          * @param {string} [language] 
          * @param {string} [category] 
          * @param {*} [options] Override http request option.
@@ -541,6 +579,7 @@ export const WordsApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Words
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -553,6 +592,7 @@ export const WordsApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Words
          * @param {string} category 
          * @param {string} english 
          * @param {string} italian 
@@ -577,6 +617,7 @@ export const WordsApiFactory = function (configuration?: Configuration, basePath
     return {
         /**
          * 
+         * @summary Words
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -585,6 +626,7 @@ export const WordsApiFactory = function (configuration?: Configuration, basePath
         },
         /**
          * 
+         * @summary Words
          * @param {string} [language] 
          * @param {string} [category] 
          * @param {*} [options] Override http request option.
@@ -595,6 +637,7 @@ export const WordsApiFactory = function (configuration?: Configuration, basePath
         },
         /**
          * 
+         * @summary Words
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -604,6 +647,7 @@ export const WordsApiFactory = function (configuration?: Configuration, basePath
         },
         /**
          * 
+         * @summary Words
          * @param {string} category 
          * @param {string} english 
          * @param {string} italian 
@@ -625,6 +669,7 @@ export const WordsApiFactory = function (configuration?: Configuration, basePath
 export class WordsApi extends BaseAPI {
     /**
      * 
+     * @summary Words
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WordsApi
@@ -635,6 +680,7 @@ export class WordsApi extends BaseAPI {
 
     /**
      * 
+     * @summary Words
      * @param {string} [language] 
      * @param {string} [category] 
      * @param {*} [options] Override http request option.
@@ -647,6 +693,7 @@ export class WordsApi extends BaseAPI {
 
     /**
      * 
+     * @summary Words
      * @param {number} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -658,6 +705,7 @@ export class WordsApi extends BaseAPI {
 
     /**
      * 
+     * @summary Words
      * @param {string} category 
      * @param {string} english 
      * @param {string} italian 
