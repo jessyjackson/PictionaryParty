@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
-    //id("com.google.gms.google-services")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -69,6 +69,8 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
     implementation(platform("androidx.compose:compose-bom:2023.08.00"))
     implementation("androidx.appcompat:appcompat:1.6.1")
+
+    implementation ("io.getstream:sketchbook:1.0.4")
 
     //stream
     implementation("io.getstream:stream-chat-android-compose:4.30.1-beta")
