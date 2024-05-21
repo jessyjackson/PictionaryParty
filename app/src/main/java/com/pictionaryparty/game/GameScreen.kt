@@ -21,55 +21,47 @@ import io.getstream.sketchbook.rememberSketchbookController
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun GameScreen(viewModel: GameViewModel)
-{
-    val buttonSheetScaffoldState = rememberBottomSheetScaffoldState()
-    GameScreenBottomSheet(bottomSheetScaffoldState = buttonSheetScaffoldState ,
-        sheetContent = { ChatWindow(viewModel) }) {
+fun GameScreen(viewModel: GameViewModel) {
+    val bottomSheetScaffoldState = rememberBottomSheetScaffoldState()
+    GameScreenBottomSheet(
+        bottomSheetScaffoldState = bottomSheetScaffoldState,
+        sheetContent = { ChatWindow(viewModel) }
+    ) {
         GameDrawing(viewModel = viewModel)
     }
 }
 
 @Composable
-fun GameDrawing(viewModel: GameViewModel)
-{
+fun GameDrawing(viewModel: GameViewModel) {
     val isHost by viewModel.isHost.collectAsState()
-    if(isHost)
-    {
+    if (isHost) {
         GameDrawingHost(viewModel = viewModel)
-    }
-    else
-    {
+    } else {
         GameDrawingNormal(viewModel = viewModel)
     }
 }
 
 @Composable
-fun GameDrawingHost(viewModel: GameViewModel)
-{
+fun GameDrawingHost(viewModel: GameViewModel) {
     val randomWords by viewModel.randomWords.collectAsState()
     val selectedWord by viewModel.selectedWord.collectAsState()
 
-    if(randomWords != null && selectedWord == null)
-    {
-        WordSelectionDialog(words = randomWords!!)  {word ->
+    if (randomWords != null && selectedWord == null) {
+        WordSelectionDialog(words = randomWords!!) { word ->
             viewModel.setSelectedWord(word)
         }
-    }
-    else
-    {
-        var sketchbookController = rememberSketchbookController()
+    } else {
+        val sketchbookController = rememberSketchbookController()
         sketchbookController.setPaintStrokeWidth(8f)
         sketchbookController.setPaintColor(Color.Black)
-        SketchbookScreen(sketchbookController){
+        SketchbookScreen(sketchbookController) {
             viewModel.broadcastBitmap(it)
         }
     }
 }
 
 @Composable
-fun GameDrawingNormal(viewModel: GameViewModel)
-{
+fun GameDrawingNormal(viewModel: GameViewModel) {
     val drawingImage = viewModel.newDrawingImage.value
 
     Box(modifier = Modifier.fillMaxSize()) {

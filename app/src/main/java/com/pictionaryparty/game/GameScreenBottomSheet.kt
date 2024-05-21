@@ -16,7 +16,8 @@ fun GameScreenBottomSheet(
         sheetContent = {
             sheetContent()
         },
-        sheetPeekHeight = 0.dp) {
+        sheetPeekHeight = 56.dp
+    ) {
         mainContent()
     }
 }

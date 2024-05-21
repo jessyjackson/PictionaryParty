@@ -32,11 +32,13 @@ fun JoinGroup(viewModel: MainViewModel) {
 
     var displayName by remember { mutableStateOf("")}
     var groupCode by remember { mutableStateOf("")}
+    var buttonClicked by remember { mutableStateOf(false) }
 
-    if (gameConnection is GameConnectionState.Success)
+    if (gameConnection is GameConnectionState.Success && buttonClicked == true)
     {
         GameActivity.start(context, (gameConnection as GameConnectionState.Success).channel.cid)
         Log.d("Connesso!", "Connesso!")
+        buttonClicked = false
     }
     else if(gameConnection is GameConnectionState.Failure)
     {
@@ -49,6 +51,7 @@ fun JoinGroup(viewModel: MainViewModel) {
         val dialog = builder.create()
         dialog.show()
         Log.d("Errore!", "Non connesso!")
+        buttonClicked = false
     }
 
     Box(
@@ -75,6 +78,7 @@ fun JoinGroup(viewModel: MainViewModel) {
                 text = stringResource(id = R.string.join_game),
                 onClick = {
                     viewModel.joinGameGroup(displayName, groupCode)
+                    buttonClicked = true
                 },
                 marginTop = 24.dp
             )
