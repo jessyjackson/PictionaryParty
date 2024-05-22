@@ -37,7 +37,7 @@ class MainViewModel @Inject constructor(
     val gameConnectionState : StateFlow<GameConnectionState> get() = _gameConnectionState
     val connectedChannel: Flow<Channel?> = _gameConnectionState.filterIsInstance<GameConnectionState.Success>()
         .mapNotNull { it.channel }
-    //c'era limit time, ma non usato
+
     private suspend fun connectUser(displayName :String): Result<ConnectionData> {
         if (chatClient.getCurrentUser() != null){
             chatClient.disconnect()
@@ -102,6 +102,14 @@ class MainViewModel @Inject constructor(
             {
                 _gameConnectionState.emit(GameConnectionState.Failure(result.error()))
             }
+        }
+    }
+
+    fun resetVariables()
+    {
+        if(chatClient != null)
+        {
+            chatClient.disconnect()
         }
     }
 }

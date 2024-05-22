@@ -133,7 +133,7 @@ class GameViewModel @AssistedInject constructor(
     {
         channelClient.subscribeFor<NewMessageEvent>{
             _gameChatMessages.value = _gameChatMessages.value + GameChatMessage(
-                it.user.name,
+                it.user.extraData.get("key_name").toString(),
                 it.message.text
             )
             if(it.message.text.lowercase() == selectedWord.value?.lowercase())
@@ -144,12 +144,15 @@ class GameViewModel @AssistedInject constructor(
     }
 
     private fun finishGame(user: User) = viewModelScope.launch {
-        channelClient.sendMessage(
-            Message(
-                text = "Congratulation! ${user.name} has correct the answer. \uD83C\uDF89",
-                type = "system"
-            )
-        ).await()
+        if(_isHost.value)
+        {
+            channelClient.sendMessage(
+                Message(
+                    text = "Congratulation! ${user.name} has correct the answer. \uD83C\uDF89",
+                    type = "system"
+                )
+            ).await()
+        }
     }
 
     private fun getRandomWords() = viewModelScope.launch {
@@ -173,5 +176,10 @@ class GameViewModel @AssistedInject constructor(
         channelClient.sendMessage(
             Message(user = chatClient.getCurrentUser()!!, text = guess)
         ).await()
+    }
+
+    fun resetVariables()
+    {
+        chatClient.disconnect()
     }
 }
