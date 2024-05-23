@@ -22,6 +22,7 @@ import com.pictionaryparty.ui.theme.DefaultTextColor
 import com.pictionaryparty.ui.theme.LightTextColor
 import com.pictionaryparty.ui.theme.PrimaryButtonColor
 import com.pictionaryparty.ui.theme.SecondaryButtonColor
+import com.pictionaryparty.ui.theme.ThirdButtonColor
 
 @Composable
 fun PrimaryButton(
@@ -63,6 +64,29 @@ fun SecondaryButton(
         text = text,
         enabled = enabled,
         backgroundColor = SecondaryButtonColor,
+        textColor = LightTextColor,
+        marginTop = marginTop,
+        marginBottom = marginBottom,
+        marginLeft = marginLeft,
+        marginRight = marginRight
+    )
+}
+
+@Composable
+fun ThirdButton(
+    onClick: (() -> Unit)? = null,
+    text: String,
+    enabled: Boolean = true,
+    marginTop: Dp = 0.dp,
+    marginBottom: Dp = 0.dp,
+    marginLeft: Dp = 0.dp,
+    marginRight: Dp = 0.dp
+) {
+    AppButton(
+        onClick = onClick,
+        text = text,
+        enabled = enabled,
+        backgroundColor = ThirdButtonColor,
         textColor = LightTextColor,
         marginTop = marginTop,
         marginBottom = marginBottom,

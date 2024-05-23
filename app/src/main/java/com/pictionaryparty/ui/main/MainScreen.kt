@@ -5,11 +5,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.pictionaryparty.ui.main.navigation.NAV_SPLASH
 import com.pictionaryparty.ui.main.navigation.CREATE_GROUP
 import com.pictionaryparty.ui.main.navigation.JOIN_GROUP
+import com.pictionaryparty.ui.main.navigation.RULES
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.pictionaryparty.ui.main.group.CreateGroup
 import com.pictionaryparty.ui.main.group.JoinGroup
+import com.pictionaryparty.ui.main.group.Rules
 
 @Composable
 fun MainScreen() {
@@ -24,6 +26,9 @@ fun MainScreen() {
         }
         composable(JOIN_GROUP) {
             JoinGroup(hiltViewModel())
+        }
+        composable(RULES){
+            Rules(hiltViewModel())
         }
     }
 }

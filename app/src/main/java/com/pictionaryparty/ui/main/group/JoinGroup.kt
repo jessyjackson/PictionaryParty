@@ -88,7 +88,7 @@ fun JoinGroup(viewModel: MainViewModel) {
 
 @Preview
 @Composable
-fun PreviewJoinGroup()
+private fun PreviewJoinGroup()
 {
     JoinGroup(hiltViewModel())
 }

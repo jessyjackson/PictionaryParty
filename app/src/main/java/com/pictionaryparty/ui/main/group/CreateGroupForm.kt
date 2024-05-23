@@ -10,6 +10,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.Dimension
@@ -29,11 +30,12 @@ fun CreateGroupForm(viewModel: MainViewModel) {
     }
     ConstraintLayout (
         modifier = Modifier.fillMaxSize()
+
     ){
         val column = createRef()
 
         Column (
-            modifier = Modifier.constrainAs(column) {
+            Modifier.constrainAs(column) {
                 top.linkTo(parent.top, 16.dp)
                 bottom.linkTo(parent.bottom, 16.dp)
                 start.linkTo(parent.start, 16.dp)

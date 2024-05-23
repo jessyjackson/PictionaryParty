@@ -12,5 +12,8 @@
     <string name="select_a_word">Select a word</string>
     <string name="guess_a_word">Guess a word</string>
 
+    <string name="rules">Rules</string>
+
     <string name="stream_api_key">ymcm78kew8eg</string>
+
 </resources>
