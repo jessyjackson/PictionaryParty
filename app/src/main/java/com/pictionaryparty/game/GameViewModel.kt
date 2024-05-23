@@ -177,4 +177,9 @@ class GameViewModel @AssistedInject constructor(
             Message(user = chatClient.getCurrentUser()!!, text = guess)
         ).await()
     }
+
+    fun resetVariables()
+    {
+        chatClient.disconnect()
+    }
 }

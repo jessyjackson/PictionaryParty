@@ -7,6 +7,9 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material3.Text
+import androidx.compose.runtime.remember
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -19,8 +22,10 @@ class GameActivity : AppCompatActivity() {
     private val viewModel by viewModels<GameViewModel>{
         GameViewModel.provideGameAssistedFactory(gameAssistedFactory,intent.getStringExtra(EXTRA_CID)!!)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent{
             GameScreen(viewModel = viewModel)
         }

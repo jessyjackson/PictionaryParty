@@ -22,10 +22,10 @@ fun MainScreen() {
             Splash(navController)
         }
         composable(CREATE_GROUP) {
-            CreateGroup(hiltViewModel())
+            CreateGroup(hiltViewModel(), navController)
         }
         composable(JOIN_GROUP) {
-            JoinGroup(hiltViewModel())
+            JoinGroup(hiltViewModel(), navController)
         }
         composable(RULES){
             Rules(hiltViewModel())
