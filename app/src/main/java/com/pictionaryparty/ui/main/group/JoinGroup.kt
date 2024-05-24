@@ -39,10 +39,10 @@ fun JoinGroup(viewModel: MainViewModel = hiltViewModel(), navController: NavHost
         Color(58,71,82)
     )
 
-    fun showConnectionErrorDialog(context: Context) {
+    fun showConnectionErrorDialog(context: Context, title: String, body: String) {
         val dialogBuilder = AlertDialog.Builder(context)
-        dialogBuilder.setTitle("Error!")
-        dialogBuilder.setMessage("Enter all fields!")
+        dialogBuilder.setTitle(title)
+        dialogBuilder.setMessage(body)
         dialogBuilder.setPositiveButton("OK") { dialog, _ ->
             dialog.dismiss()
         }
@@ -68,15 +68,7 @@ fun JoinGroup(viewModel: MainViewModel = hiltViewModel(), navController: NavHost
         Log.d("Connesso!", "Connesso!")
         buttonClicked = false
     } else if (gameConnection is GameConnectionState.Failure && buttonClicked) {
-        /*val builder = AlertDialog.Builder(context)
-        builder.setTitle("Errore!")
-        builder.setMessage("Codice non trovato!")
-        builder.setPositiveButton("OK") { dialog, _ ->
-            dialog.dismiss()
-        }
-        val dialog = builder.create()
-        dialog.show()*/
-        showConnectionErrorDialog(context)
+        showConnectionErrorDialog(context, "Error!", "The connection was unsuccessful, check the fields entered!")
         Log.d("Errore!", "Non connesso!")
         buttonClicked = false
     }

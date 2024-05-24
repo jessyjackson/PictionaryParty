@@ -71,6 +71,7 @@ fun GameScreen(viewModel: GameViewModel) { //,navController: NavHostController
             showAlert(context, "Congratulations!!", "You guessed it!")
         }
 
+        viewModel.resetVariables()
     }
 
     GameScreenBottomSheet(
