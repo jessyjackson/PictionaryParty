@@ -55,6 +55,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.pictionaryparty.ui.theme.PrimaryButtonColor
 
 
 
@@ -133,13 +134,13 @@ fun AppTextFieldGame(
             .wrapContentHeight()
             .padding(top = marginTop, bottom = marginBottom, start = marginLeft, end = marginRight),
         textStyle = TextStyle(
-            color = Color.LightGray,
+            color = Color.Black,
             fontSize = 18.sp
         ),
         value = value,
         colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = Color.LightGray,
-            unfocusedBorderColor = Color.LightGray
+            focusedBorderColor = PrimaryButtonColor,
+            unfocusedBorderColor = PrimaryButtonColor
         ),
         enabled = enabled,
         onValueChange = { onValueChange?.invoke(it) },
@@ -147,7 +148,7 @@ fun AppTextFieldGame(
             Text(
                 text = label,
                 style = TextStyle(
-                    color = Color.LightGray,
+                    color = Color.Black,
                     fontSize = 15.sp,
                 )
             )

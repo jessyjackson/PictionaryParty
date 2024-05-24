@@ -3,6 +3,7 @@ package com.pictionaryparty.game
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -20,6 +21,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.pictionaryparty.ui.components.AppTextField
 import com.pictionaryparty.ui.components.NormalText
 import com.pictionaryparty.R
+import com.pictionaryparty.ui.components.AppTextFieldGame
 
 @Composable
 fun ChatWindow(
@@ -35,7 +37,9 @@ fun ChatWindow(
     ) {
         val (textField, sendButton, chatList) = createRefs()
 
-        LazyColumn(content = {
+        LazyColumn(
+            modifier = Modifier.padding(16.dp),
+            content = {
             items(gameChatList){ item ->
                 NormalText(text = "${item.user}: ${item.message}", size = 18.sp)
             }
@@ -50,7 +54,7 @@ fun ChatWindow(
                     width = Dimension.fillToConstraints
                 }
             ) {
-                AppTextField(
+                AppTextFieldGame(
                     label = stringResource(id = R.string.guess_a_word),
                     value = guess,
                     marginTop = 0.dp,
