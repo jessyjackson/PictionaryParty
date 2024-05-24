@@ -105,8 +105,8 @@ fun ButtonGame(
     onClick: (() -> Unit)? = null,
     text: String? = "➤",
     enabled: Boolean = true,
-    backgroundColor: Color = PrimaryButtonColor,
-    textColor: Color = Color.White,
+    backgroundColor: Color = Color.Transparent,
+    textColor: Color = PrimaryButtonColor,
     marginTop: Dp = 0.dp,
     marginBottom: Dp = 0.dp,
     marginLeft: Dp = 0.dp,
@@ -127,7 +127,7 @@ fun ButtonGame(
                 text = text,
                 color = textColor,
                 fontFamily = FontFamily.SansSerif,
-                fontSize = 50.sp
+                fontSize = 30.sp
             )
         }
     }

@@ -94,7 +94,18 @@ fun ChatWindow(
                     onClick = {
                         viewModel.sendGuessToChannel(guess)
                         guess = ""
+                    },
+                    modifier = Modifier
+                        .constrainAs(sendButton) {
+                        end.linkTo(parent.end)
+                        bottom.linkTo(parent.bottom)
                     }
+                        .padding(
+                            horizontal = 20.dp,
+                            vertical = 18.dp
+                        )
+                        .width(52.dp)
+                        .height(52.dp)
                 )
             }
         }
