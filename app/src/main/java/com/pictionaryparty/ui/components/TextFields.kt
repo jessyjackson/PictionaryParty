@@ -140,7 +140,11 @@ fun AppTextFieldGame(
         value = value,
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = PrimaryButtonColor,
-            unfocusedBorderColor = PrimaryButtonColor
+            unfocusedBorderColor = PrimaryButtonColor,
+            cursorColor = Color.Black,
+            focusedLabelColor = PrimaryButtonColor,
+            unfocusedLabelColor = PrimaryButtonColor,
+            disabledTextColor = Color.Black 
         ),
         enabled = enabled,
         onValueChange = { onValueChange?.invoke(it) },
@@ -148,7 +152,7 @@ fun AppTextFieldGame(
             Text(
                 text = label,
                 style = TextStyle(
-                    color = Color.Black,
+                    color = if (enabled) Color.Black else Color.Black, // Cambia il colore dell'etichetta in base allo stato abilitato
                     fontSize = 15.sp,
                 )
             )
