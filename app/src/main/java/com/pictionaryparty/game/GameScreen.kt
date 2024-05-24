@@ -4,6 +4,7 @@ import GameScreenBottomSheet
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.window.SplashScreen
 import androidx.activity.compose.BackHandler
 import androidx.appcompat.app.AlertDialog
@@ -62,13 +63,17 @@ fun GameScreen(viewModel: GameViewModel) { //,navController: NavHostController
 
     if(win)
     {
+        Log.i("vin",viewModel.winner)
         if(viewModel.isHost.value)
         {
             showAlert(context, "Finished!!", "The game is finished!")
         }
-        else
+        else if (viewModel.winner == viewModel.playerName.value)
         {
             showAlert(context, "Congratulations!!", "You guessed it!")
+        }
+        else{
+            showAlert(context, "gay!!", "You lost it!")
         }
 
         viewModel.resetVariables()

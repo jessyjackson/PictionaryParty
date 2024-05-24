@@ -3,6 +3,7 @@ package com.pictionaryparty.game
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.util.Log
 import androidx.appcompat.app.AlertDialog
 
 import androidx.compose.runtime.State
@@ -66,6 +67,10 @@ class GameViewModel @AssistedInject constructor(
     val isHost :StateFlow<Boolean>
         get() = _isHost
 
+    private val _playerName = MutableStateFlow("")
+    val playerName :StateFlow<String>
+        get() = _playerName
+
     private val _randomWords = MutableStateFlow<List<String>?>(null)
     val randomWords :StateFlow<List<String>?>
         get() = _randomWords
@@ -79,6 +84,8 @@ class GameViewModel @AssistedInject constructor(
 
     private val _newDrawingImage: MutableState<String?> = mutableStateOf(null)
     val newDrawingImage: State<String?> = _newDrawingImage
+
+    public var winner = ""
 
     init {
         fetchChannelInformation()
@@ -102,6 +109,8 @@ class GameViewModel @AssistedInject constructor(
         val result = channelClient.watch().await()
         result.onSuccess {
             _isHost.value = it.createdBy.id == chatClient.getCurrentUser()?.id
+            _playerName.value = chatClient.getCurrentUser()?.id.toString()
+            Log.i("name",_playerName.value)
             if (isHost.value) {
                 getRandomWords()
             } else {
@@ -145,12 +154,14 @@ class GameViewModel @AssistedInject constructor(
         channelClient.subscribeFor<NewMessageEvent>{
             _gameChatMessages.value = _gameChatMessages.value + GameChatMessage(
                 it.user.extraData.get("key_name").toString(),
-                it.message.text
+                it.message.text,
             )
             if(it.message.text.lowercase() == selectedWord.value?.lowercase())
             {
                 finishGame(it.user)
+                winner = it.user.id
                 win.value = true
+
             }
         }
     }
@@ -164,6 +175,7 @@ class GameViewModel @AssistedInject constructor(
                     type = "system"
                 )
             ).await()
+
         }
     }
 
@@ -194,5 +206,6 @@ class GameViewModel @AssistedInject constructor(
     {
         chatClient.disconnect()
         win.value = false
+        winner = ""
     }
 }
