@@ -8,10 +8,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -19,7 +17,6 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.pictionaryparty.game.GameViewModel
 import com.pictionaryparty.ui.components.AppTextField
 import com.pictionaryparty.ui.components.NormalText
 import com.pictionaryparty.R
@@ -56,6 +53,10 @@ fun ChatWindow(
                 AppTextField(
                     label = stringResource(id = R.string.guess_a_word),
                     value = guess,
+                    marginTop = 0.dp,
+                    marginLeft = 10.dp,
+                    marginRight = 10.dp,
+                    marginBottom = 10.dp,
                     onValueChange = { guess = it })
             }
 
@@ -71,7 +72,7 @@ fun ChatWindow(
                     viewModel.sendGuessToChannel(guess)
                     guess = ""
                 },
-                shape = CircleShape
+                shape = CircleShape,
             ) {
 
             }
