@@ -101,32 +101,9 @@ fun ThirdButton(
 }
 
 @Composable
-fun FourthButton(
-    onClick: (() -> Unit)? = null,
-    text: String,
-    enabled: Boolean = true,
-    marginTop: Dp = 0.dp,
-    marginBottom: Dp = 0.dp,
-    marginLeft: Dp = 0.dp,
-    marginRight: Dp = 0.dp
-) {
-    AppButton(
-        onClick = onClick,
-        text = text,
-        enabled = enabled,
-        backgroundColor = Color(89, 69, 79),
-        textColor = LightTextColor,
-        marginTop = marginTop,
-        marginBottom = marginBottom,
-        marginLeft = marginLeft,
-        marginRight = marginRight
-    )
-}
-
-@Composable
 fun ButtonGame(
     onClick: (() -> Unit)? = null,
-    text: String? = null,
+    text: String? = "➤",
     enabled: Boolean = true,
     backgroundColor: Color = PrimaryButtonColor,
     textColor: Color = Color.White,
@@ -135,8 +112,7 @@ fun ButtonGame(
     marginLeft: Dp = 0.dp,
     marginRight: Dp = 0.dp,
     modifier: Modifier = Modifier,
-    colors: ButtonColors = ButtonDefaults.buttonColors(backgroundColor),
-    image : Boolean
+    colors: ButtonColors = ButtonDefaults.buttonColors(backgroundColor)
 ) {
     Button(
         onClick = { onClick?.invoke() },
@@ -144,20 +120,15 @@ fun ButtonGame(
             .padding(top = marginTop, bottom = marginBottom, start = marginLeft, end = marginRight),
         enabled = enabled,
         colors = colors,
-        contentPadding = PaddingValues(vertical = 24.dp)
+        contentPadding = PaddingValues(horizontal = 10.dp, vertical = 2.dp)
     ) {
         if (text != null) {
             Text(
                 text = text,
                 color = textColor,
                 fontFamily = FontFamily.SansSerif,
-                fontSize = 150.sp
+                fontSize = 50.sp
             )
-        }
-        if(image){
-            Image(painter = painterResource(id = R.drawable.sample_image ), contentDescription = "",
-                modifier = Modifier
-                    .size(25.dp))
         }
     }
 }
@@ -204,6 +175,7 @@ private fun AppButton(
 @Preview
 @Composable
 fun ButtonPreview() {
-    PrimaryButton(text = "Sample Button")
+    //PrimaryButton(text = "Sample Button")
     //SecondaryButton(text = "Sample Button")
+    ButtonGame()
 }
