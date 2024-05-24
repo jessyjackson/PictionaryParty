@@ -1,11 +1,18 @@
 package com.pictionaryparty.game
 
+import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
+import androidx.appcompat.app.AlertDialog
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.toLowerCase
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -14,6 +21,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.pictionaryparty.MainActivity
+import com.pictionaryparty.R
 import com.pictionaryparty.data.GameChatMessage
 import com.pictionaryparty.data.RandomWords
 import com.pictionaryparty.utils.KEY_HOST_NAME
@@ -47,6 +56,8 @@ class GameViewModel @AssistedInject constructor(
     private val chatClient : ChatClient,
     @Assisted val cid : String
 ) : ViewModel(){
+    public var win = false
+
     private val channelClient = chatClient.channel(cid)
 
     private val firebaseDb = FirebaseDatabase.getInstance().getReference(channelClient.groupID)
@@ -139,6 +150,7 @@ class GameViewModel @AssistedInject constructor(
             if(it.message.text.lowercase() == selectedWord.value?.lowercase())
             {
                 finishGame(it.user)
+                win = true
             }
         }
     }
@@ -148,7 +160,7 @@ class GameViewModel @AssistedInject constructor(
         {
             channelClient.sendMessage(
                 Message(
-                    text = "Congratulation! ${user.name} has correct the answer. \uD83C\uDF89",
+                    text = "Congratulation! ${user.extraData.get("key_name").toString()} has correct the answer. \uD83C\uDF89",
                     type = "system"
                 )
             ).await()
@@ -181,5 +193,6 @@ class GameViewModel @AssistedInject constructor(
     fun resetVariables()
     {
         chatClient.disconnect()
+        win = false
     }
 }

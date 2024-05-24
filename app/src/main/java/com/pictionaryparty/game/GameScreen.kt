@@ -1,9 +1,11 @@
 package com.pictionaryparty.game
 
 import GameScreenBottomSheet
+import android.content.Context
 import android.content.Intent
 import android.window.SplashScreen
 import androidx.activity.compose.BackHandler
+import androidx.appcompat.app.AlertDialog
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,9 +25,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.pictionaryparty.MainActivity
+import com.pictionaryparty.R
 import com.pictionaryparty.ui.main.MainScreen
 import com.pictionaryparty.ui.main.Splash
 import com.pictionaryparty.utils.toBitmap
@@ -40,6 +44,10 @@ fun GameScreen(viewModel: GameViewModel) { //,navController: NavHostController
     val bottomSheetScaffoldState = rememberBottomSheetScaffoldState()
     val coroutineScope = rememberCoroutineScope()
     var backPressed by remember { mutableStateOf(false) }
+    var win by remember {
+        mutableStateOf(viewModel.win)
+    }
+    val context = LocalContext.current
 
     BackHandler {
         coroutineScope.launch {
@@ -49,10 +57,13 @@ fun GameScreen(viewModel: GameViewModel) { //,navController: NavHostController
     }
 
     if (backPressed) {
-        val intent = Intent(LocalContext.current, MainActivity()::class.java)
-        LocalContext.current.startActivity(intent)
+        navigateToMainActivity(context)
     }
 
+    if(win)
+    {
+        showAlert(context)
+    }
 
     GameScreenBottomSheet(
         bottomSheetScaffoldState = bottomSheetScaffoldState,
@@ -100,4 +111,26 @@ fun GameDrawingNormal(viewModel: GameViewModel) {
             Image(bitmap = it, contentDescription = "")
         }
     }
+}
+
+fun navigateToMainActivity(context: Context) {
+    val intent = Intent(context, MainActivity::class.java)
+    context.startActivity(intent)
+}
+
+fun showAlert(context: Context) {
+    val dialogBuilder = AlertDialog.Builder(context)
+    dialogBuilder.setTitle("Congratulations!!")
+    dialogBuilder.setMessage("You guessed it!")
+    dialogBuilder.setPositiveButton("Back to home") { dialog, _ ->
+        dialog.dismiss()
+        navigateToMainActivity(context)
+    }
+    val alertDialog = dialogBuilder.create()
+    alertDialog.show()
+
+    val window = alertDialog.window
+    window?.setBackgroundDrawableResource(R.drawable.custom_dialog_layout)
+    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+        ?.setTextColor(ContextCompat.getColor(context, R.color.color_your_custom_color))
 }

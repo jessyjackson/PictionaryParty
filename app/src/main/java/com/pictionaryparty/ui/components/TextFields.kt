@@ -22,6 +22,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.CardColors
@@ -34,6 +35,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -83,7 +85,7 @@ fun AppTextField(
         ),
         value = value,
         colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = Color(39,68,92),
+            focusedBorderColor = Color.LightGray,
             unfocusedBorderColor = Color.LightGray
         ),
         enabled = enabled,
@@ -106,6 +108,52 @@ fun AppTextField(
                 tint =Color.LightGray
             )
         },
+        maxLines = 1
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun AppTextFieldGame(
+    onValueChange: ((input: String) -> Unit)? = null,
+    value: String = "",
+    label: String,
+    enabled: Boolean = true,
+    keyboardType: KeyboardType = KeyboardType.Text,
+    marginTop: Dp,
+    marginBottom: Dp,
+    marginLeft: Dp,
+    marginRight: Dp
+) {
+    var isFocused by remember { mutableStateOf(false) }
+
+    OutlinedTextField(
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .padding(top = marginTop, bottom = marginBottom, start = marginLeft, end = marginRight),
+        textStyle = TextStyle(
+            color = Color.LightGray,
+            fontSize = 18.sp
+        ),
+        value = value,
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            focusedBorderColor = Color.LightGray,
+            unfocusedBorderColor = Color.LightGray
+        ),
+        enabled = enabled,
+        onValueChange = { onValueChange?.invoke(it) },
+        label = {
+            Text(
+                text = label,
+                style = TextStyle(
+                    color = Color.LightGray,
+                    fontSize = 15.sp,
+                )
+            )
+        },
+        shape = RoundedCornerShape(3.dp),
+        keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
         maxLines = 1
     )
 }
@@ -143,7 +191,7 @@ fun Spinnere(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AppTextFieldLimitTime(
+fun AppTextFieldSecondary(
     onValueChange: ((input: String) -> Unit)? = null,
     value: String = "",
     label: String,
@@ -154,20 +202,21 @@ fun AppTextFieldLimitTime(
     marginLeft: Dp = 0.dp,
     marginRight: Dp = 0.dp
 ) {
+    var isFocused by remember { mutableStateOf(false) }
+
     OutlinedTextField(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
             .padding(top = marginTop, bottom = marginBottom, start = marginLeft, end = marginRight),
         textStyle = TextStyle(
-            color = Color.Black,
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Bold
+            color = Color.LightGray,
+            fontSize = 18.sp
         ),
         value = value,
         colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = Color(39,68,92),
-            unfocusedBorderColor = Color(39,68,92)
+            focusedBorderColor = Color.LightGray,
+            unfocusedBorderColor = Color.LightGray
         ),
         enabled = enabled,
         onValueChange = { onValueChange?.invoke(it) },
@@ -175,17 +224,19 @@ fun AppTextFieldLimitTime(
             Text(
                 text = label,
                 style = TextStyle(
-                    color = Color(39,68,92),
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold
+                    color = Color.LightGray,
+                    fontSize = 15.sp,
                 )
             )
         },
-        shape = RoundedCornerShape(12.dp),
+        shape = RoundedCornerShape(3.dp),
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
         leadingIcon = {
-            Icon(imageVector = Icons.Filled.DateRange,
-                contentDescription = "Icon")
+            Icon(
+                imageVector = Icons.Filled.Add,
+                contentDescription = "Icon",
+                tint =Color.LightGray
+            )
         },
         maxLines = 1
     )

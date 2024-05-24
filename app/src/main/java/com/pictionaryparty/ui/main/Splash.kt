@@ -21,6 +21,7 @@ import androidx.navigation.compose.rememberNavController
 import com.pictionaryparty.ui.components.DisplayImage
 import com.pictionaryparty.ui.components.PrimaryButton
 import com.pictionaryparty.ui.components.SecondaryButton
+import com.pictionaryparty.ui.components.TitleText
 import com.pictionaryparty.ui.components.ThirdButton
 import com.pictionaryparty.ui.main.navigation.CREATE_GROUP
 import com.pictionaryparty.ui.main.navigation.JOIN_GROUP
@@ -29,9 +30,11 @@ import com.pictionaryparty.ui.main.navigation.RULES
 @Composable
 fun Splash(navController: NavController) {
     val gradientColorList = listOf(
-        Color(68, 82, 96),
-        Color(39,68,92),
-        Color(68, 82, 96)
+        Color(58,71,82),
+        Color(89,69,79),
+        Color(149,116,132),
+        Color(89,69,79),
+        Color(58,71,82)
     )
     ConstraintLayout(
         modifier = Modifier
@@ -55,14 +58,15 @@ fun Splash(navController: NavController) {
                 },
             horizontalAlignment = Alignment.CenterHorizontally // Centro orizzontalmente il contenuto
         ) {
+            TitleText(text = "Pictionary Party")
             DisplayImage(
                 painter = painterResource(id = R.drawable.home_image),
                 modifier = Modifier
-                    .size(400.dp) // Imposta la dimensione dell'immagine, puoi regolare questa dimensione come preferisci
-                    .padding(bottom = 16.dp), // Aggiungi un padding inferiore per distanziare dall'elemento successivo
+                    .size(280.dp) // Imposta la dimensione dell'immagine, puoi regolare questa dimensione come preferisci
+                    .padding(top = 10.dp, bottom = 20.dp), // Aggiungi un padding inferiore per distanziare dall'elemento successivo
                 shape = RoundedCornerShape(16.dp) // Specifica il bordo arrotondato
             )
-            ThirdButton(
+            PrimaryButton(
                 text = stringResource(id = R.string.rules),
                 marginTop = 10.dp,
                 onClick = {
@@ -70,14 +74,14 @@ fun Splash(navController: NavController) {
                 }
 
             )
-            PrimaryButton(
+            SecondaryButton(
                 text = stringResource(id = R.string.create_game),
                 marginTop = 16.dp,
                 onClick = {
                     navController.navigate(CREATE_GROUP)
                 }
             )
-            SecondaryButton(
+            ThirdButton(
                 text = stringResource(id = R.string.join_game),
                 marginTop = 16.dp,
                 onClick = {
@@ -89,7 +93,7 @@ fun Splash(navController: NavController) {
 }
 
 @Composable
-private fun GradientBackgroundBrush(
+fun GradientBackgroundBrush(
     isVerticalGradient: Boolean,
     colors: List<Color>
 ): Brush {

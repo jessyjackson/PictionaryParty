@@ -11,23 +11,26 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CardElevation
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.pictionaryparty.ui.theme.DefaultButtonColor
-import com.pictionaryparty.ui.theme.PrimaryButtonColor
 import com.pictionaryparty.ui.theme.SecondaryButtonColor
 import com.pictionaryparty.R
 
@@ -39,50 +42,55 @@ fun CardRules(
     enabled: Boolean = false,
     shape: Shape = CardDefaults.outlinedShape,
     colors: CardColors = CardDefaults.outlinedCardColors(),
-    elevation: CardElevation = CardDefaults.outlinedCardElevation(),
     border: BorderStroke = CardDefaults.outlinedCardBorder(enabled),
     interactionSource: MutableInteractionSource? = null,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    ElevatedCard(
+    Surface(
         modifier = modifier
-            .size(width = 600.dp, height = 300.dp)
-            .padding(10.dp)
+            .size(width = 600.dp, height = 400.dp)
+            .padding(15.dp)
+            .shadow(8.dp, shape),
+        color = SecondaryButtonColor,
+        shape = shape,
+        border = border,
     ) {
         Box(
             Modifier
                 .fillMaxSize()
-                .background(PrimaryButtonColor)
-                .border(5.dp, SecondaryButtonColor) // Set the border color and thickness
-                .padding(20.dp) // Set the padding for the internal margin
+                .padding(20.dp)
         ) {
-            Text("1. Accesso: Accedi o crea un gruppo online.\n\n" +
-                    "2. Turni: Una persona del gruppo disegna mentre le altre cercano di indovinare.\n" +
-                    "\n" +
-                    "2. Gioco: L'obiettivo è indovinare il disegno il più velocemente possibile.",
+            Text(
+                buildAnnotatedString {
+                    pushStyle(SpanStyle(fontStyle = FontStyle.Italic))
+
+                    withStyle(
+                        style = SpanStyle(fontWeight = androidx.compose.ui.text.font.FontWeight.Bold, textDecoration = TextDecoration.Underline),
+                        block = { append("Access") }
+                    )
+
+                    append(": Log in or create a group online.\n\n")
+
+                    withStyle(
+                        style = SpanStyle(fontWeight = androidx.compose.ui.text.font.FontWeight.Bold, textDecoration = TextDecoration.Underline),
+                        block = { append("Turns") }
+                    )
+
+                    append(": One person in the group draws while others try to guess.\n\n")
+
+                    withStyle(
+                        style = SpanStyle(fontWeight = androidx.compose.ui.text.font.FontWeight.Bold, textDecoration = TextDecoration.Underline),
+                        block = { append("Game") }
+                    )
+
+                    append(": The goal is to guess the drawing as quickly as possible.")
+                },
                 Modifier.align(Alignment.Center),
-                color = Color.LightGray
+                color = Color.LightGray,
+                fontSize = 20.sp
             )
         }
     }
-}
-
-@Composable
-private fun GradientBackgroundBrush(
-    isVerticalGradient: Boolean,
-    colors: List<Color>
-): Brush {
-    val endOffset = if (isVerticalGradient) {
-        Offset(0f, Float.POSITIVE_INFINITY)
-    } else {
-        Offset(Float.POSITIVE_INFINITY, 0f)
-    }
-
-    return Brush.linearGradient(
-        colors = colors,
-        start = Offset.Zero,
-        end = endOffset
-    )
 }
 
 @Preview

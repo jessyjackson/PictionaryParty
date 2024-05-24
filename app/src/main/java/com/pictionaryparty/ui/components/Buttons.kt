@@ -103,9 +103,9 @@ private fun AppButton(
     backgroundColor: Color = DefaultButtonColor,
     textColor: Color = DefaultTextColor,
     marginTop: Dp = 0.dp,
-    marginBottom: Dp = 0.dp,
-    marginLeft: Dp = 0.dp,
-    marginRight: Dp = 0.dp
+    marginBottom: Dp = 10.dp ,
+    marginLeft: Dp = 10.dp,
+    marginRight: Dp = 10.dp
 ) {
     Button(
         onClick = { onClick?.invoke() },
