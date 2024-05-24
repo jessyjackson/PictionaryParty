@@ -14,6 +14,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.pictionaryparty.R
 import com.pictionaryparty.game.GameActivity
 import com.pictionaryparty.ui.components.PrimaryButton
@@ -35,9 +36,10 @@ fun GroupEntranceSheetContent(
         ) {
             Text(
                 text = channel?.groupID ?: "",
+                fontSize = 22.sp
             )
             PrimaryButton(
-                text = "game",
+                text = "Game",
                 marginTop = 24.dp,
                 marginBottom = 24.dp,
                 onClick = {

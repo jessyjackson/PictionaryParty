@@ -61,11 +61,11 @@ fun Splash(navController: NavController) {
                 },
             horizontalAlignment = Alignment.CenterHorizontally // Centro orizzontalmente il contenuto
         ) {
-            TitleText(text = "Pictionary Party")
+            TitleText(text = "Home")
             DisplayImage(
                 painter = painterResource(id = R.drawable.home_image),
                 modifier = Modifier
-                    .size(280.dp) // Imposta la dimensione dell'immagine, puoi regolare questa dimensione come preferisci
+                    .size(350.dp) // Imposta la dimensione dell'immagine, puoi regolare questa dimensione come preferisci
                     .padding(top = 10.dp, bottom = 20.dp), // Aggiungi un padding inferiore per distanziare dall'elemento successivo
                 shape = RoundedCornerShape(16.dp) // Specifica il bordo arrotondato
             )

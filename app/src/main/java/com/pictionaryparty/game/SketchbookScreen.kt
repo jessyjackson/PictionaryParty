@@ -19,7 +19,7 @@ fun SketchbookScreen(controller: SketchbookController, bitmapListener: (bitmap: 
 {
     Box(modifier = Modifier.fillMaxSize().border(2.dp, Color.Black).padding(12.dp)){
        Sketchbook(modifier = Modifier.fillMaxSize(), controller = controller,
-           backgroundColor = Color.White,
+           backgroundColor = Color(89, 69, 79),
            onPathListener = {
                 val bitmap = controller.getSketchbookBitmap().asAndroidBitmap()
                 bitmapListener.invoke(bitmap)

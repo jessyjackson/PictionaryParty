@@ -87,7 +87,8 @@ fun AppTextField(
         value = value,
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = Color.LightGray,
-            unfocusedBorderColor = Color.LightGray
+            unfocusedBorderColor = Color.LightGray,
+            cursorColor = PrimaryButtonColor
         ),
         enabled = enabled,
         onValueChange = { onValueChange?.invoke(it) },
@@ -163,37 +164,6 @@ fun AppTextFieldGame(
     )
 }
 
-
-
-/*@OptIn(ExperimentalMaterial3Api::class)
-/*@Composable
-fun Spinnere(
-    items: List<String>, // Lista degli elementi dello spinner
-    selectedValue: String, // Valore selezionato dello spinner
-    onValueChange: (String) -> Unit, // Callback per il cambio del valore dello spinner
-    enabled: Boolean = true,
-    marginTop: Dp = 0.dp,
-    marginBottom: Dp = 0.dp,
-    marginLeft: Dp = 0.dp,
-    marginRight: Dp = 0.dp
-) {
-    // Aggiunta dello spinner
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp)
-    ) {
-        AppDropdownMenu(
-            items = items,
-            label = "Select Item", // Etichetta dello spinner
-            selectedValue = selectedValue,
-            onValueChange = onValueChange
-        )
-    }
-}*/*/
-
-
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppTextFieldSecondary(
@@ -221,7 +191,8 @@ fun AppTextFieldSecondary(
         value = value,
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = Color.LightGray,
-            unfocusedBorderColor = Color.LightGray
+            unfocusedBorderColor = Color.LightGray,
+            cursorColor = PrimaryButtonColor
         ),
         enabled = enabled,
         onValueChange = { onValueChange?.invoke(it) },

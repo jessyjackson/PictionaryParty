@@ -54,6 +54,10 @@ android {
 
 dependencies {
 
+    //icon
+    implementation ("androidx.compose.material:material-icons-core:1.6.7")
+    implementation ("androidx.compose.material:material-icons-extended:1.6.7")
+
     //kapt("org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.5.0")
     //androidx
 
