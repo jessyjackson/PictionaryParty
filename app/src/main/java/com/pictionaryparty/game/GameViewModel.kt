@@ -158,10 +158,9 @@ class GameViewModel @AssistedInject constructor(
             )
             if(it.message.text.lowercase() == selectedWord.value?.lowercase())
             {
-                finishGame(it.user)
                 winner = it.user.id
                 win.value = true
-
+                finishGame(it.user)
             }
         }
     }
@@ -175,7 +174,6 @@ class GameViewModel @AssistedInject constructor(
                     type = "system"
                 )
             ).await()
-
         }
     }
 
@@ -207,5 +205,7 @@ class GameViewModel @AssistedInject constructor(
         chatClient.disconnect()
         win.value = false
         winner = ""
+        _isHost.value = false
+        _playerName.value = ""
     }
 }

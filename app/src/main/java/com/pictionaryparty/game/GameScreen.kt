@@ -18,6 +18,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.BottomSheetScaffoldState
 import androidx.compose.material3.rememberBottomSheetScaffoldState
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -73,7 +74,7 @@ fun GameScreen(viewModel: GameViewModel) { //,navController: NavHostController
             showAlert(context, "Congratulations!!", "You guessed it!")
         }
         else{
-            showAlert(context, "gay!!", "You lost it!")
+            showAlert(context, "You lost!!", "You weren't able to guess the draw!")
         }
 
         viewModel.resetVariables()
@@ -100,11 +101,15 @@ fun GameDrawing(viewModel: GameViewModel) {
 @Composable
 fun GameDrawingHost(viewModel: GameViewModel) {
     val randomWords by viewModel.randomWords.collectAsState()
-    val selectedWord by viewModel.selectedWord.collectAsState()
+    var selectedWordBoolean by remember { mutableStateOf(false) }
 
-    if (randomWords != null && selectedWord == null) {
-        WordSelectionDialog(words = randomWords!!) { word ->
-            viewModel.setSelectedWord(word)
+    if (!selectedWordBoolean) {
+        if (randomWords != null)
+        {
+            WordSelectionDialog(words = randomWords!!) { word ->
+                    viewModel.setSelectedWord(word)
+                    selectedWordBoolean = true
+            }
         }
     } else {
         val sketchbookController = rememberSketchbookController()

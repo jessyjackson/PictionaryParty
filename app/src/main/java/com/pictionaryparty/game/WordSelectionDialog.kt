@@ -16,6 +16,7 @@ import androidx.compose.ui.window.Dialog
 import com.pictionaryparty.R
 import com.pictionaryparty.ui.components.SubtitleText
 import com.pictionaryparty.ui.components.NormalText
+
 @Composable
 fun WordSelectionDialog(
     words: List<String>,
@@ -50,7 +51,9 @@ private fun WordSelectionDialogView(
                             .fillMaxWidth()
                             .padding(vertical = 8.dp),
                         text = it,
-                        onClick = { wordSelected.invoke(it) }
+                        onClick = {
+                            wordSelected.invoke(it)
+                        }
                     )
                     Divider(thickness = 1.dp)
                 }

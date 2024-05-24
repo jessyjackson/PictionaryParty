@@ -7,6 +7,6 @@ class RandomWords @Inject constructor(
 ) {
     suspend fun getRandomWords(): List<String>{
         val words = randomWordsApi.getRandomWords()
-        return words.asSequence().shuffled().take(5).toList()
+        return words.asSequence().shuffled().take(3).toList()
     }
 }
