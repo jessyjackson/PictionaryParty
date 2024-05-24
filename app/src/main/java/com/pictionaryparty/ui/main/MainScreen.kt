@@ -1,5 +1,6 @@
 package com.pictionaryparty.ui.main
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.pictionaryparty.ui.main.navigation.NAV_SPLASH
@@ -16,6 +17,10 @@ import com.pictionaryparty.ui.main.group.Rules
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
+
+    BackHandler {
+
+    }
 
     NavHost(navController = navController, startDestination = NAV_SPLASH) {
         composable(NAV_SPLASH) {

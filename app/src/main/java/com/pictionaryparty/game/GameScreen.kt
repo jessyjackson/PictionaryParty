@@ -1,6 +1,7 @@
 package com.pictionaryparty.game
 
 import GameScreenBottomSheet
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.window.SplashScreen
@@ -38,15 +39,14 @@ import io.getstream.sketchbook.rememberSketchbookController
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun GameScreen(viewModel: GameViewModel) { //,navController: NavHostController
     val bottomSheetScaffoldState = rememberBottomSheetScaffoldState()
     val coroutineScope = rememberCoroutineScope()
     var backPressed by remember { mutableStateOf(false) }
-    var win by remember {
-        mutableStateOf(viewModel.win)
-    }
+    var win by remember { viewModel.win }
     val context = LocalContext.current
 
     BackHandler {
@@ -62,7 +62,15 @@ fun GameScreen(viewModel: GameViewModel) { //,navController: NavHostController
 
     if(win)
     {
-        showAlert(context)
+        if(viewModel.isHost.value)
+        {
+            showAlert(context, "Finished!!", "The game is finished!")
+        }
+        else
+        {
+            showAlert(context, "Congratulations!!", "You guessed it!")
+        }
+
     }
 
     GameScreenBottomSheet(
@@ -118,10 +126,10 @@ fun navigateToMainActivity(context: Context) {
     context.startActivity(intent)
 }
 
-fun showAlert(context: Context) {
+fun showAlert(context: Context, title: String, body: String) {
     val dialogBuilder = AlertDialog.Builder(context)
-    dialogBuilder.setTitle("Congratulations!!")
-    dialogBuilder.setMessage("You guessed it!")
+    dialogBuilder.setTitle(title)
+    dialogBuilder.setMessage(body)
     dialogBuilder.setPositiveButton("Back to home") { dialog, _ ->
         dialog.dismiss()
         navigateToMainActivity(context)

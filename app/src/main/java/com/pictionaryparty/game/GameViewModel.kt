@@ -56,7 +56,7 @@ class GameViewModel @AssistedInject constructor(
     private val chatClient : ChatClient,
     @Assisted val cid : String
 ) : ViewModel(){
-    public var win = false
+    public var win = mutableStateOf(false)
 
     private val channelClient = chatClient.channel(cid)
 
@@ -150,7 +150,7 @@ class GameViewModel @AssistedInject constructor(
             if(it.message.text.lowercase() == selectedWord.value?.lowercase())
             {
                 finishGame(it.user)
-                win = true
+                win.value = true
             }
         }
     }
@@ -193,6 +193,6 @@ class GameViewModel @AssistedInject constructor(
     fun resetVariables()
     {
         chatClient.disconnect()
-        win = false
+        win.value = false
     }
 }
